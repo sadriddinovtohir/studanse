@@ -10,54 +10,60 @@ import AccountSettings from "../../pages/account-settings/AccountSettings";
 import { menuItems } from "../../components/template/Sidebar/data";
 import Communications from "../../pages/communications/Communications";
 import Mastering from "../../pages/mastering/Mastering";
+import Achievements from "@/pages/achievements/Achievements";
 
 const getRolesByPath = (path) => {
-    const item = menuItems.find((i) => i.path === path);
-    return item?.roles || [];
+  const item = menuItems.find((i) => i.path === path);
+  return item?.roles || [];
 };
 
 export const router = createBrowserRouter([
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    {
-        element: <RootLayout />,
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    element: <RootLayout />,
+    children: [
+      {
+        element: <DashboardLayout />,
         children: [
-            {
-                element: <DashboardLayout />,
-                children: [
-                    {
-                        path: "/",
-                        loader: roleLoader(getRolesByPath("/")),
-                        element: <Home />,
-                    },
-                    {
-                        path: "/data-info",
-                        loader: roleLoader(getRolesByPath("/data-info")),
-                        element: <DataInfo />,
-                    },
-                    {
-                        path: "/mastering",
-                        loader: roleLoader(getRolesByPath("/mastering")),
-                        element: <Mastering />,
-                    },
-                    {
-                        path: "/settings",
-                        loader: roleLoader(getRolesByPath("/settings")),
-                        element: <AccountSettings />,
-                    },
-                    {
-                        path: "/communications",
-                        loader: roleLoader(getRolesByPath("/communications")),
-                        element: <Communications />,
-                    },
-                ],
-            },
+          {
+            path: "/",
+            loader: roleLoader(getRolesByPath("/")),
+            element: <Home />,
+          },
+          {
+            path: "/data-info",
+            loader: roleLoader(getRolesByPath("/data-info")),
+            element: <DataInfo />,
+          },
+          {
+            path: "/achievements",
+            loader: roleLoader(getRolesByPath("/achievements")),
+            element: <Achievements />,
+          },
+          {
+            path: "/mastering",
+            loader: roleLoader(getRolesByPath("/mastering")),
+            element: <Mastering />,
+          },
+          {
+            path: "/settings",
+            loader: roleLoader(getRolesByPath("/settings")),
+            element: <AccountSettings />,
+          },
+          {
+            path: "/communications",
+            loader: roleLoader(getRolesByPath("/communications")),
+            element: <Communications />,
+          },
         ],
-    },
-    {
-        path: "*",
-        element: <NotFound />,
-    },
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);
