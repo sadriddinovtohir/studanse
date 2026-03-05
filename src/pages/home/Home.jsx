@@ -5,11 +5,11 @@ import React from "react";
 export default function Home() {
   const headerData = [
     {
-      title:"Manage Admins",
-      button:"ADD",
-       input:"search",
-    }
-  ]
+      title: "Manage Admins",
+      button: "ADD",
+      input: "search",
+    },
+  ];
   const data = [
     {
       name: "lorem",

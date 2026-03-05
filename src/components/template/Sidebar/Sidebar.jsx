@@ -19,17 +19,17 @@ export default function Sidebar() {
   const user = useUser();
 
   return (
-    <div className="sidebar h-screen">
+    <div className="sidebar h-[94vh] text-textColor">
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="default">
+          <Button variant="ghost" >
             <MenuIcon />
           </Button>
         </SheetTrigger>
 
         <SheetContent
           side="left"
-          className="w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out h-[100vh] flex flex-col justify-between"
+          className="w-64 bg-bgColor shadow-lg transition-transform duration-300 ease-in-out h-[100vh] flex flex-col justify-between"
         >
           <div>
             <SheetHeader>
@@ -43,7 +43,7 @@ export default function Sidebar() {
                     <SheetClose asChild>
                       <NavLink
                         to={item.path}
-                        className="flex gap-2 items-center w-full p-3"
+                        className="flex gap-2 items-center w-full p-3 text-textColor"
                       >
                         {item.icon}
 

@@ -3,11 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --bgColor: black;
+  --bgColor: 0, 0%, 0%; 
+  --textColor: 0 0% 100%;   
 }
 
 .light {
-  --bgColor: white;
+  --bgColor: 48, 100%, 99%;
+  --textColor: 0 0% 0%;   
 }
 
 @layer base {
@@ -37,8 +39,9 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --dashbordcolor:300, 100%, 100%;
   }
-
+  
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -64,6 +67,7 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --dashbordcolor:274, 19%, 7%;
   }
 }
 
@@ -71,4 +75,9 @@
   background: linear-gradient(90deg, rgba(210, 224, 250, 1) 0%, rgba(234, 214, 249, 1) 100%);
   border: 1px solid #B1BEFE;
   border-radius: 12px;
+  color: hsl(var(--bgColor));
+}
+
+body{
+  background-color: var(--bgColor);
 }

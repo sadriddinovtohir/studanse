@@ -24,18 +24,9 @@ export default function DataTable({
   data = [],
   headerData = [],
 }) {
-  const [statedata, setdata] = React.useState(false);
   if (!columns.length) {
     <p>Columns undefined.</p>;
   }
-  React.useEffect(() => {
-    if (headerData && headerData.length > 0) {
-      setdata(true);
-    } else {
-      setdata(false);
-    }
-  }, [headerData]);
-  if (!statedata) return null;
 
   return (
     <div
@@ -45,9 +36,7 @@ export default function DataTable({
       }}
       className="max-h-[calc(100vh-200px)]  bg-transparent overflow-y-auto border rounded-lg mx-3 my-3"
     >
-      <div
-        className={` ${statedata == true ? "border-2 rounded-lg  border-[#27222CFF] p-5" : "border-none"} `}
-      >
+      <div className={"border-2 rounded-lg  border-[#27222CFF] p-5"}>
         <div className="p-4">
           {headerData.map((item, index) => {
             return (
@@ -57,7 +46,7 @@ export default function DataTable({
               >
                 <h3 className="text-2xl">{item.title}</h3>
                 <div className="flex gap-5 items-center">
-                 <SearchInput startIcon={<Search/>} className={"h-[30px]"} />
+                  <SearchInput startIcon={<Search />} className={"h-[30px]"} />
                   <Button startIcon={<PlusIcon />} variant={"primary"}>
                     {item.button}
                   </Button>
@@ -72,7 +61,7 @@ export default function DataTable({
               {columns.map((col) => (
                 <TableHead
                   key={col.key}
-                  className="capitalize font-semibold text-sm border-b"
+                  className="capitalize font-semibold text-sm border-b text-textColor"
                 >
                   {col.label}
                 </TableHead>
@@ -83,12 +72,12 @@ export default function DataTable({
             {data.length ? (
               data.map((row, index) => {
                 return (
-                  <TableRow key={row.id || index}>
+                  <TableRow className="text-textColor" key={row.id || index}>
                     {columns.map((col, colIndex) => {
                       return (
                         <TableCell
                           key={col.key || colIndex}
-                          className="text-sm"
+                          className="text-sm "
                         >
                           {col.render
                             ? col.render(row[col.key], row, index)
@@ -103,7 +92,7 @@ export default function DataTable({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="text-center py-6 "
+                  className="text-center py-6 text-textColor "
                 >
                   Information not found
                 </TableCell>
