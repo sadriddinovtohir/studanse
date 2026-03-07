@@ -7,9 +7,9 @@ export const roleLoader = (allowedRoles) => {
         if (!user) {
             throw redirect("/login");
         }
-        console.log(user);
+
         if (allowedRoles && !allowedRoles.includes(user)) {
-            throw redirect("/unauthorized");
+            throw redirect("/*");
         }
 
         return user;

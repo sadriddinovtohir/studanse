@@ -22,12 +22,7 @@ export const menuItems = [
     {
         label: "Data Info",
         path: "/data-info",
-        roles: [
-            "ROLE_ADMIN",
-            "ROLE_SYSTEM_ADMIN",
-            "ROLE_STUDENT",
-            "ROLE_TEACHER",
-        ],
+        roles: ["ROLE_ADMIN", "ROLE_STUDENT", "ROLE_TEACHER"],
         icon: <DatabaseIcon className="w-5 h-5" />,
     },
     {

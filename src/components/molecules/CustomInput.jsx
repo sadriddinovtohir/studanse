@@ -18,7 +18,7 @@ export function CustomInput({
   return (
     <div className={cn("space-y-2", containerClassName)}>
       {label && (
-        <label className="text-white text-sm font-medium text-foreground">
+        <label className="dark:text-white text-sm font-medium text-foreground">
           {label}
         </label>
       )}

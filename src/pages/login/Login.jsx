@@ -6,12 +6,10 @@ import { Button } from "@/components/ui/button";
 import { authLogin } from "@/service/login";
 import { getRoleFromToken } from "@/config/getRoleFromToken";
 import { saveState } from "@/config/storej";
-import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "@/context/UserContext";
 
 export default function Login() {
-    const navigate = useNavigate();
     const { _, setRoles } = useContext(UserContext);
 
     const {
@@ -32,7 +30,7 @@ export default function Login() {
             setRoles(res?.data?.data?.token);
             saveState("role", getRoleFromToken(res?.data?.data?.token));
             if (res?.data?.data?.token) {
-                navigate("/");
+                window.location.pathname = "/";
             }
         } catch (error) {
             console.log(error);

@@ -1,44 +1,39 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+} from "@/components/ui/sheet";
 
-export function CustomSheet(data) {
-  return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </SheetDescription>
-        </SheetHeader>
-        <div className="grid flex-1 auto-rows-min gap-6 px-4">
-          <div className="grid gap-3">
-            <Label htmlFor="sheet-demo-name">Name</Label>
-            <Input id="sheet-demo-name" defaultValue="Pedro Duarte" />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="sheet-demo-username">Username</Label>
-            <Input id="sheet-demo-username" defaultValue="@peduarte" />
-          </div>
-        </div>
-        <SheetFooter>
-          <Button type="submit">Log-out</Button>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
-  )
+export function CustomSheet({
+    open,
+    onClose,
+    title,
+    description,
+    children,
+    footer,
+    side = "right",
+}) {
+    return (
+        <Sheet open={open} onOpenChange={onClose}>
+            <SheetContent side={side}>
+                {(title || description) && (
+                    <SheetHeader>
+                        {title && <SheetTitle>{title}</SheetTitle>}
+                        {description && (
+                            <SheetDescription>{description}</SheetDescription>
+                        )}
+                    </SheetHeader>
+                )}
+
+                <div className="flex-1 overflow-y-auto px-4 py-2">
+                    {children}
+                </div>
+
+                {footer && <SheetFooter>{footer}</SheetFooter>}
+            </SheetContent>
+        </Sheet>
+    );
 }

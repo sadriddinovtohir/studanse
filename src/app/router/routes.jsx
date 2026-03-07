@@ -11,6 +11,8 @@ import Mastering from "@/pages/mastering/Mastering";
 import AccountSettings from "@/pages/account-settings/AccountSettings";
 import DataInfo from "@/pages/data-info/DataInfo";
 import NotFound from "@/pages/not-found/NotFound";
+import Schools from "@/components/template/Schools/Schools";
+import SuperAdmins from "@/components/template/SuperAdmin/SuperAdmins";
 
 const getRolesByPath = (path) => {
     const item = menuItems.find((i) => i.path === path);
@@ -46,7 +48,20 @@ export const router = createBrowserRouter([
                     {
                         path: "/mastering",
                         loader: roleLoader(getRolesByPath("/mastering")),
-                        element: <Mastering />,
+                        children: [
+                            {
+                                index: true,
+                                element: <Mastering />,
+                            },
+                            {
+                                path: "schools",
+                                element: <Schools />,
+                            },
+                            {
+                                path: "admins",
+                                element: <SuperAdmins />,
+                            },
+                        ],
                     },
                     {
                         path: "/settings",
