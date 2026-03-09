@@ -4,11 +4,17 @@
 
 :root {
   --bgColor: 0, 0%, 0%; 
+  --titleBgColors:#191636FF;
+  --iconsColor:#2B7FFFFF;
   --textColor: 0 0% 100%;   
+  --cardcolor:  linear-gradient(135deg, #1d1f51ff, #6c3535ff);
 }
 
 .light {
+  --iconsColor:#2B7FFFFF;
   --bgColor: 48, 100%, 99%;
+  --cardcolor:  #EBEAF9FF;
+  --titleBgColors:#DFE3FDFF;
   --textColor: 0 0% 0%;   
 }
 

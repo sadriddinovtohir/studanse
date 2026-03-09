@@ -6,7 +6,7 @@ import project_Logo from "../assets/img/project_logo.png";
 import user_icon from "../assets/svg/user_icon.svg";
 
 export const DashboardLayout = () => {
-    const nav = useNavigate()
+  const nav = useNavigate();
   return (
     <div className="flex min-h-screen bg-dashbordcolor">
       <div className="my-5 max-h-[95vh] pl-3">
@@ -25,7 +25,10 @@ export const DashboardLayout = () => {
           </div>
           <div className="flex gap-5 items-center mr-4">
             <ThemeMode />
-            <button onClick={()=>nav("/settings")} className="relative w-[50px] h-[50px] ">
+            <button
+              onClick={() => nav("/settings")}
+              className="relative w-[50px] h-[50px] "
+            >
               <img
                 className="w-full h-full rounded-full object-cover cursor-pointer"
                 src={user_icon}

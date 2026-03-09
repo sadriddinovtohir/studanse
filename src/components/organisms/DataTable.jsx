@@ -16,13 +16,15 @@ import SearchInput from "../molecules/Searchinput";
 /**
  * @param {Object[]} columns
  * @param {Object[]} data
- * @param {Object[]} headerData
  */
 
 export default function DataTable({
   columns = [],
   data = [],
-  headerData = [],
+  DataImg,
+  Datatitle,
+  Search ,
+  Create , 
 }) {
   if (!columns.length) {
     <p>Columns undefined.</p>;
@@ -38,22 +40,24 @@ export default function DataTable({
     >
       <div className={"border-2 rounded-lg  border-[#27222CFF] p-5"}>
         <div className="p-4">
-          {headerData.map((item, index) => {
-            return (
-              <div
-                key={item.id || index}
-                className="flex justify-between items-center"
-              >
-                <h3 className="text-2xl">{item.title}</h3>
-                <div className="flex gap-5 items-center">
-                  <SearchInput startIcon={<Search />} className={"h-[30px]"} />
-                  <Button startIcon={<PlusIcon />} variant={"primary"}>
-                    {item.button}
-                  </Button>
-                </div>
-              </div>
-            );
-          })}
+          <div
+            className="flex justify-between items-center"
+          >
+            <div className="flex items-center gap-4">
+              {DataImg ? <img src={DataImg} alt="" /> : null}
+              {Datatitle && <h3 className="text-2xl">{Datatitle}</h3>}
+            </div>
+            <div className="flex gap-5 items-center">
+              {Search ? (
+                <SearchInput startIcon={<Search />} className={"h-[30px]"} />
+              ) : null}
+              {Create ? (
+                <Button startIcon={<PlusIcon />} variant={"primary"}>
+                  {Create}
+                </Button>
+              ) : null}
+            </div>
+          </div>
         </div>
         <Table className=" border-2 w-full rounded-lg  border-collapse bg-transparent">
           <TableHeader className="sticky  top-0 z-10 bg-transparent shadow-sm ">

@@ -4,6 +4,12 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        sm: "600px",
+        md: "900px",
+        lg: "1200px",
+        xl: "1400px",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -15,6 +21,9 @@ export default {
         bgColor: "hsl(var(--bgColor))",
         textColor: "hsl(var(--textColor))",
         dashbordcolor: "hsl(var(--dashbordcolor))",
+        titleBgColor: "var(--titleBgColors)",
+        iconsColor: "var(--iconsColor)",
+        cardcolor: "var(--cardcolor)",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -55,6 +64,19 @@ export default {
         },
       },
     },
-  },
-  plugins: [require("tailwindcss-animate")],
+  }, 
+  plugins: [
+    require("tailwindcss-animate"),  
+    function ({ addUtilities }) {    
+      addUtilities({
+        ".hover-scale": {
+          transform: "translateZ(0)",
+          transition: "transform 300ms ease-in-out",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        },
+      });
+    },
+  ],
 };
