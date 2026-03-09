@@ -18,6 +18,7 @@ export default function CustomTable({
     onEdit,
     onDelete,
     isLoading = false,
+    isSchoolMine = false,
 }) {
     return (
         <div className="rounded-2xl border border-white/20 dark:border-white/10 overflow-hidden">
@@ -32,9 +33,11 @@ export default function CustomTable({
                                 {column.label}
                             </TableHead>
                         ))}
-                        <TableHead className="font-semibold text-foreground/80">
-                            Actions
-                        </TableHead>
+                        {!isSchoolMine && (
+                            <TableHead className="font-semibold text-foreground/80">
+                                Actions
+                            </TableHead>
+                        )}
                     </TableRow>
                 </TableHeader>
 
@@ -122,26 +125,31 @@ export default function CustomTable({
                                     </TableCell>
                                 ))}
 
-                                <TableCell>
-                                    <div className="flex gap-2">
-                                        <Button
-                                            variant="link"
-                                            size="sm"
-                                            onClick={() => onEdit(item.id)}
-                                            className="h-8 w-8 p-0 rounded-lg border-white/20 dark:border-white/10 hover:bg-white/10 dark:hover:bg-white/5"
-                                        >
-                                            <Edit2 className="h-3 w-3" />
-                                        </Button>
-                                        <Button
-                                            variant="link"
-                                            size="sm"
-                                            onClick={() => onDelete(item.id)}
-                                            className="h-8 w-8 p-0 rounded-lg border-red-500/30 hover:bg-red-500/10 text-red-500 hover:text-red-400"
-                                        >
-                                            <Trash2 className="h-3 w-3" />
-                                        </Button>
-                                    </div>
-                                </TableCell>
+                                {!isSchoolMine && (
+                                    <TableCell>
+                                        <div className="flex gap-2">
+                                            <Button
+                                                variant="link"
+                                                size="sm"
+                                                onClick={() => onEdit(item.id)}
+                                                className="h-8 w-8 p-0 rounded-lg border-white/20 dark:border-white/10 hover:bg-white/10 dark:hover:bg-white/5"
+                                            >
+                                                <Edit2 className="h-3 w-3" />
+                                            </Button>
+
+                                            <Button
+                                                variant="link"
+                                                size="sm"
+                                                onClick={() =>
+                                                    onDelete(item.id)
+                                                }
+                                                className="h-8 w-8 p-0 rounded-lg border-red-500/30 hover:bg-red-500/10 text-red-500 hover:text-red-400"
+                                            >
+                                                <Trash2 className="h-3 w-3" />
+                                            </Button>
+                                        </div>
+                                    </TableCell>
+                                )}
                             </TableRow>
                         ))}
                 </TableBody>

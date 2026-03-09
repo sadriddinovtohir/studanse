@@ -1,3 +1,4 @@
+import AdminMastering from "@/components/template/AdminMastering/AdminMastering";
 import SuperAdminMastering from "@/components/template/SuperAdminMastering/SuperAdminMastering";
 import { UserContext } from "@/context/UserContext";
 import React, { useContext } from "react";
@@ -8,7 +9,7 @@ export default function Mastering() {
         case "ROLE_SYSTEM_ADMIN":
             return <SuperAdminMastering />;
         case "ROLE_ADMIN":
-            return "";
+            return <AdminMastering />;
         case "ROLE_TEACHER":
             return "";
         case "ROLE_STUDENT":

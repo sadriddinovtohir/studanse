@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { CustomSelect } from "@/components/molecules/CustomSelect";
 import { useQuery } from "@tanstack/react-query";
-import { schoolAllQuery, superAdminByIdlQuery } from "@/query";
+import { schoolsAllQuery, superAdminByIdlQuery } from "@/query";
 import { useCustomMutation } from "@/hooks/useCustomMutation";
 import { superAdminCreate, superAdminUpate } from "@/service/super-admin";
 import { userStatus, values } from "./data";
@@ -22,7 +22,7 @@ export default function SuperAdminsCreate({ open, setOpen, id, setId }) {
         defaultValues: values,
     });
     const selectedConfig = item.find((config) => config.type === "admins");
-    const { data: schools } = useQuery({ ...schoolAllQuery() });
+    const { data: schools } = useQuery({ ...schoolsAllQuery() });
     const schoolData = schools?.data?.data || [];
 
     useEffect(() => {

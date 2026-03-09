@@ -37,7 +37,7 @@ export default function SchoolsCreate({ open, setOpen, id, setId }) {
 
     const { mutate: createSchool, isPending: isCreating } = useCustomMutation({
         mutationFn: schoolCreate,
-        invalidateKeys: ["school-all"],
+        invalidateKeys: ["schools-all"],
         successMessage: "Maktab yaratildi!",
         onSuccess: () => {
             setOpen("");
@@ -48,7 +48,7 @@ export default function SchoolsCreate({ open, setOpen, id, setId }) {
 
     const { mutate: updateSchool, isPending: isUpdating } = useCustomMutation({
         mutationFn: ({ id, data }) => schoolUpdate(id, data),
-        invalidateKeys: ["schools", "school-all"],
+        invalidateKeys: ["schools", "schools-all"],
         successMessage: "Maktab yangilandi!",
         onSuccess: () => {
             setOpen("");

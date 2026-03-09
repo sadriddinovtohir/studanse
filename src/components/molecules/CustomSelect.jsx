@@ -8,6 +8,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { X } from "lucide-react";
 
 export function CustomSelect({
     name,
@@ -20,6 +22,7 @@ export function CustomSelect({
     defaultValue,
     className,
     containerClassName,
+    isMulti = false,
     ...props
 }) {
     return (
@@ -33,52 +36,148 @@ export function CustomSelect({
             <Controller
                 name={name}
                 control={control}
-                defaultValue={defaultValue ?? ""} 
-                render={({ field, fieldState }) => (
-                    <>
-                        <Select
-                            value={field.value ?? ""}
-                            onValueChange={field.onChange}
-                            disabled={loading || disabled}
-                            {...props}
-                        >
-                            <SelectTrigger
-                                className={cn(
-                                    fieldState.error &&
-                                        "border-red-500 focus-visible:ring-red-500",
-                                    className,
-                                )}
-                            >
-                                {loading ? (
-                                    <div className="flex items-center gap-2 text-muted-foreground">
-                                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-muted border-t-primary" />
-                                        <span className="text-sm">Yuklanmoqda...</span>
-                                    </div>
-                                ) : (
-                                    <SelectValue placeholder={placeholder} />
-                                )}
-                            </SelectTrigger>
+                defaultValue={defaultValue ?? (isMulti ? [] : "")}
+                render={({ field, fieldState }) => {
+                    const multiValue = Array.isArray(field.value)
+                        ? field.value
+                        : [];
 
-                            <SelectContent>
-                                {options.map((opt) => (
-                                    <SelectItem
-                                        key={opt.value}
-                                        value={opt.value}
-                                        disabled={opt.disabled}
+                    return (
+                        <>
+                            {isMulti ? (
+                                <div
+                                    className={cn(
+                                        "border rounded-md p-1 min-h-10 flex flex-wrap gap-1",
+                                        fieldState.error && "border-red-500",
+                                        (loading || disabled) &&
+                                            "opacity-50 cursor-not-allowed",
+                                        className
+                                    )}
+                                >
+                                    {multiValue.map((val) => {
+                                        const opt = options.find(
+                                            (o) => o.value === val
+                                        );
+                                        return (
+                                            <Badge
+                                                key={val}
+                                                variant="secondary"
+                                                className="flex items-center gap-1 px-2 py-1"
+                                            >
+                                                {opt?.label ?? val}
+                                                <button
+                                                    type="button"
+                                                    disabled={
+                                                        loading || disabled
+                                                    }
+                                                    onClick={() =>
+                                                        field.onChange(
+                                                            multiValue.filter(
+                                                                (v) => v !== val
+                                                            )
+                                                        )
+                                                    }
+                                                >
+                                                    <X className="w-3 h-3" />
+                                                </button>
+                                            </Badge>
+                                        );
+                                    })}
+
+                                    <Select
+                                        disabled={loading || disabled}
+                                        onValueChange={(val) => {
+                                            if (!multiValue.includes(val)) {
+                                                field.onChange([
+                                                    ...multiValue,
+                                                    val,
+                                                ]);
+                                            }
+                                        }}
                                     >
-                                        {opt.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                                        <SelectTrigger className="border-0 shadow-none h-7 w-auto flex-1 min-w-24 focus:ring-0">
+                                            {loading ? (
+                                                <div className="flex items-center gap-2 text-muted-foreground">
+                                                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-muted border-t-primary" />
+                                                    <span className="text-sm">
+                                                        Yuklanmoqda...
+                                                    </span>
+                                                </div>
+                                            ) : (
+                                                <SelectValue
+                                                    placeholder={placeholder}
+                                                />
+                                            )}
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {options
+                                                .filter(
+                                                    (opt) =>
+                                                        !multiValue.includes(
+                                                            opt.value
+                                                        )
+                                                )
+                                                .map((opt) => (
+                                                    <SelectItem
+                                                        key={opt.value}
+                                                        value={opt.value}
+                                                        disabled={opt.disabled}
+                                                    >
+                                                        {opt.label}
+                                                    </SelectItem>
+                                                ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            ) : (
+                                <Select
+                                    value={field.value ?? ""}
+                                    onValueChange={field.onChange}
+                                    disabled={loading || disabled}
+                                    {...props}
+                                >
+                                    <SelectTrigger
+                                        className={cn(
+                                            fieldState.error &&
+                                                "border-red-500 focus-visible:ring-red-500",
+                                            className
+                                        )}
+                                    >
+                                        {loading ? (
+                                            <div className="flex items-center gap-2 text-muted-foreground">
+                                                <div className="h-4 w-4 animate-spin rounded-full border-2 border-muted border-t-primary" />
+                                                <span className="text-sm">
+                                                    Yuklanmoqda...
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <SelectValue
+                                                placeholder={placeholder}
+                                            />
+                                        )}
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {options.map((opt) => (
+                                            <SelectItem
+                                                key={opt.value}
+                                                value={opt.value}
+                                                disabled={opt.disabled}
+                                            >
+                                                {opt.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            )}
 
-                        {fieldState.error && (
-                            <p className="text-sm text-red-500">
-                                {fieldState.error.message}
-                            </p>
-                        )}
-                    </>
-                )}
+                            {fieldState.error && (
+                                <p className="text-sm text-red-500">
+                                    {fieldState.error.message}
+                                </p>
+                            )}
+                        </>
+                    );
+                }}
             />
         </div>
     );

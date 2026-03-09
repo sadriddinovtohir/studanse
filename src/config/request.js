@@ -1,5 +1,6 @@
 import axios from "axios";
 import { loadState } from "./storej";
+import { toast } from "react-toastify";
 
 const request = axios.create({
     baseURL: import.meta.env.VITE_SERVER,
@@ -14,14 +15,20 @@ request.interceptors.request.use((config) => {
 });
 
 request.interceptors.response.use(
-    (respons) => {
-        return respons;
-    },
+    (response) => response,
     (error) => {
-        if (error.response?.status == 403 || error.response.status == 401) {
+        const status = error.response?.status;
+
+        if (status === 401) {
             localStorage.removeItem("token");
-            window.location.href = "/";
+            localStorage.removeItem("role");
+            window.location.href = "/login";
         }
+
+        if (status === 403) {
+            toast.error("Bu amalni bajarishga ruxsatingiz yo'q");
+        }
+
         return Promise.reject(error);
     }
 );

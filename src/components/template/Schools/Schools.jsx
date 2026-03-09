@@ -8,7 +8,7 @@ import CustomTable from "@/components/organisms/CustomTable";
 import SchoolsCreate from "./SchoolsCreate";
 import SearchInput from "@/components/molecules/Searchinput";
 import { useQuery } from "@tanstack/react-query";
-import { schoolAllQuery } from "@/query";
+import { schoolsAllQuery } from "@/query";
 import { useCustomMutation } from "@/hooks/useCustomMutation";
 import { schoolDelete } from "@/service/school";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,12 +19,12 @@ export default function Schools() {
     const [open, setOpen] = useState(false);
     const [id, setId] = useState("");
 
-    const { data, isLoading } = useQuery({ ...schoolAllQuery() });
+    const { data, isLoading } = useQuery({ ...schoolsAllQuery() });
     const schoolsData = data?.data?.data || [];
 
     const { mutate: deleteSchool, isPending: isDeleting } = useCustomMutation({
         mutationFn: schoolDelete,
-        invalidateKeys: ["school-all"],
+        invalidateKeys: ["schools-all"],
         successMessage: "Maktab o'chirildi!",
     });
     return (

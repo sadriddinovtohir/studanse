@@ -11,7 +11,7 @@ export function useCustomMutation({
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn,
+        mutationFn: mutationFn ?? (() => Promise.reject("mutationFn yo'q")),
         onSuccess: (data) => {
             invalidateKeys.forEach((key) => {
                 queryClient.invalidateQueries({ queryKey: [key] });
