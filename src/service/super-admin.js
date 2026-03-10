@@ -19,3 +19,7 @@ export const superAdminUpate = (id, data) => {
 export const superAdminDelete = (id) => {
   return request({ method: "DELETE", url: `/admin/system-admin/${id}` });
 };
+// me url
+export const superAdminMe = (params) => {
+  return request({ method: "GET", url: "/user/me", params });
+};

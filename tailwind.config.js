@@ -24,6 +24,11 @@ export default {
         titleBgColor: "var(--titleBgColors)",
         iconsColor: "var(--iconsColor)",
         cardcolor: "var(--cardcolor)",
+        textGrey: "var(--textGrey)",
+        btnBgPrimary: "var(--btnBgPrimary)",
+        btnblue: "var(--btnblue)",
+        btnBgHoverSecondry: "var(--btnBgHoverSecondry)",
+        btnBgHoverPrimary: "var(--btnBgHoverPrimary)",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

@@ -1,3 +1,4 @@
+import { schoolById, schoolsAll } from "@/service/school";
 import { adminAll, adminById } from "@/service/admin";
 import {
     adminClassesStudents,
@@ -7,10 +8,9 @@ import {
 } from "@/service/class";
 import { lessonAll, lessonById } from "@/service/lesson";
 import { reasonAll, reasonById } from "@/service/reason";
-import { schoolById, schoolMine, schoolsAll } from "@/service/school";
 import { studentById, studentsAll } from "@/service/student";
 import { subjectAll, subjectById } from "@/service/subject";
-import { superAdminAll, superAdminById } from "@/service/super-admin";
+import { superAdminAll, superAdminById, superAdminMe } from "@/service/super-admin";
 import { teacherAdminAll, teacherAll, teacherById } from "@/service/teacher";
 
 // school
@@ -50,6 +50,12 @@ export const superAdminByIdlQuery = (id) => {
     };
 };
 
+export const MeUrl = (params)=>{
+    return{
+        queryKey:["superAdminMeurl", params],
+        queryFn:async()=> superAdminMe(params)
+    }
+}
 // class
 export const classGroupAllQuery = () => {
     return {
