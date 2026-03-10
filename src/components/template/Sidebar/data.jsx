@@ -28,7 +28,7 @@ export const menuItems = [
     {
         label: "Achievements",
         path: "/achievements",
-        roles: ["ROLE_STUDENT", "ROLE_ADMIN"],
+        roles: ["ROLE_STUDENT"],
         icon: <Trophy className="w-5 h-5" />,
     },
     {

@@ -3,19 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --bgColor: 0, 0%, 0%; 
-  --titleBgColors:#191636FF;
-  --iconsColor:#2B7FFFFF;
-  --textColor: 0 0% 100%;   
-  --cardcolor:  linear-gradient(135deg, #1d1f51ff, #6c3535ff);
+  --bgColor: 0, 0%, 0%;
+  --titleBgColors: #191636ff;
+  --iconsColor: #2b7fffff;
+  --textColor: 0 0% 100%;
+  --cardcolor: linear-gradient(135deg, #1d1f51ff, #6c3535ff);
+  --textGrey: #677080ff;
+  --btnBgPrimary: #141e2fff;
+  --btnBgHoverSecondry:rgba(97, 27, 188, 0.436);
+  --btnblue: rgba(72, 130, 216, 0.581);
+  --btnBgHoverPrimary: rgba(0, 68, 195, 0.58);
 }
 
 .light {
-  --iconsColor:#2B7FFFFF;
+  --textGrey: #677080ff;
+  --btnblue: rgba(135, 174, 232, 0.581);
+  --btnBgHoverPrimary: rgba(0, 68, 195, 0.58);
+  --btnBgHoverSecondry:rgba(97, 27, 188, 0.436);
+  --iconsColor: #2b7fffff;
   --bgColor: 48, 100%, 99%;
-  --cardcolor:  #EBEAF9FF;
-  --titleBgColors:#DFE3FDFF;
-  --textColor: 0 0% 0%;   
+  --cardcolor: #ebeaf9ff;
+  --titleBgColors: #dfe3fdff;
+  --textColor: 0 0% 0%;
 }
 
 @layer base {

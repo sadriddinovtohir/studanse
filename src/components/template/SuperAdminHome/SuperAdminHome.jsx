@@ -3,14 +3,18 @@ import React from "react";
 import { Building2 } from "lucide-react";
 import CustomIcon from "@/components/atoms/CustomTitleIcon/CustomIcon";
 import { useQuery } from "@tanstack/react-query";
-import { schoolAllQuery } from "@/query";
+import { MeUrl } from "@/query";
 import { CustomDialog } from "@/components/organisms/CustomDialog";
+import { useMediaQuery } from "@/components/atoms/UseMediaQuery/UseMediaQuery";
 
 export default function SuperAdminHome() {
   const [open, setOpen] = React.useState(false);
   const [selectedSchool, setSelectedSchool] = React.useState(null);
-  const { data, isLoading } = useQuery({ ...schoolAllQuery() });
-  const ollSchools = data?.data?.data;
+  const { data, isLoading } = useQuery({ ...MeUrl() });
+  const ollSchools = data?.data?.content;
+
+  // const { data: dat } = useQuery(());
+  const isMobile = useMediaQuery("(max-width: 1012px)");
 
   return (
     <div>
@@ -19,7 +23,9 @@ export default function SuperAdminHome() {
         title={"System Admin Dashboard"}
         titlesize={30}
       />
-      <div className="flex justify-center gap-5 flex-wrap  ">
+      <div
+        className={`flex  ${isMobile ? "justify-center" : "justify-between"}  gap-5 flex-wrap  `}
+      >
         {isLoading
           ? Array(6)
               .fill(0)
@@ -37,28 +43,33 @@ export default function SuperAdminHome() {
                   BadgeVariants={String(item.status)}
                   Badgeboolean={true}
                   avatarFallback={item.countryCode}
-                  title={String(item.name)}
+                  title={String(item.schoolName)}
                   established={item.establishedYear}
+                  students={item.totalStudents}
+                  classes={item.totalClassGroups}
+                  teachers={item.totalTeachers}
+                  admins={item.totalAdmins}
                 />
               </div>
             ))}
       </div>
       <CustomDialog
         open={open}
-         onClose={setOpen}
-        title={"lorem"}
+        onClose={setOpen}
+        title={"School Details"}
         icon={Building2}
         iconsize={20}
         titlesize={17}
-        initials={"initials"}
-        info={"info"}
-        status={"status"}
-        address={"address"}
-        established={"established"}
-        Students={1234}
-        Teachers={1234}
-        Classes={1234}
-        Admins={1234}
+        initials={selectedSchool?.countryCode}
+        info={selectedSchool?.schoolName}
+        status={selectedSchool?.status}
+        address={selectedSchool?.address}
+        established={selectedSchool?.establishedYear}
+        Students={selectedSchool?.totalStudents}
+        Teachers={selectedSchool?.totalTeachers}
+        Classes={selectedSchool?.totalClassGroups}
+        Admins={selectedSchool?.totalAdmins}
+        dataes={selectedSchool?.admins}
       />
     </div>
   );

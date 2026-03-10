@@ -5,11 +5,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function AdminHome() {
+
   return (
     <div>
          <CustomIcon icon={Users} title={"Admin Dashboard"} titlesize={30} iconsize={20}/> 
       <Link>
         <CustomCard
+        // isLoading={isLoading}
           BadgeVariants="active"
           Badgeboolean={false}
           deta={"30-september"}
