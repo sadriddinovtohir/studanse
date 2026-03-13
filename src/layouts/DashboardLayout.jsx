@@ -15,14 +15,22 @@ export const DashboardLayout = () => {
 
       <div className="flex-1 flex flex-col">
         <div className="flex justify-between items-center px-4 py-1 ">
-          <div className="flex items-center gap-4">
+          <Link
+            to="/"
+            className="flex items-center gap-1 cursor-pointer
+  transition-all duration-300
+  hover:scale-105 hover:z-50"
+          >
             <img
               className="w-[60px] h-[60px] object-contain"
               src={project_Logo}
               alt="Project Logo"
             />
-            <h3 className="text-xl font-semibold text-textColor">Student</h3>
-          </div>
+
+            <h3 className="text-xl font-semibold text-textColor">
+              Stud<span className="text-red-500">ance</span>
+            </h3>
+          </Link>
           <div className="flex gap-5 items-center mr-4">
             <ThemeMode />
             <button

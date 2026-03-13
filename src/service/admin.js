@@ -19,3 +19,4 @@ export const adminUpdate = (id, data) => {
 export const adminDelete = (id) => {
     return request({ method: "DELETE", url: `/admin/${id}` });
 };
+

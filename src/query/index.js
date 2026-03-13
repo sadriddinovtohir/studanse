@@ -8,7 +8,7 @@ import {
 } from "@/service/class";
 import { lessonAll, lessonById } from "@/service/lesson";
 import { reasonAll, reasonById } from "@/service/reason";
-import { studentById, studentsAll } from "@/service/student";
+import { studentById, studentGet, studentsAll } from "@/service/student";
 import { subjectAll, subjectById } from "@/service/subject";
 import { superAdminAll, superAdminById, superAdminMe } from "@/service/super-admin";
 import { teacherAdminAll, teacherAll, teacherById } from "@/service/teacher";
@@ -181,3 +181,16 @@ export const reasonQuery = (id) => {
         queryFn: async () => reasonById(id),
     };
 };
+
+export const student = ()=>{
+    return{
+        queryKey:["getstudent"],
+        queryFn:async ()=> studentGet(),
+    }
+}
+
+export const AdminHomeQuery =()=>{
+    return{
+        queryKey:["adminData"]
+    }
+}

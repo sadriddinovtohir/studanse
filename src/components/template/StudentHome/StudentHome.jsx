@@ -1,9 +1,15 @@
 import CustomIcon from "@/components/atoms/CustomTitleIcon/CustomIcon";
 import StudanceReportStatus from "@/components/organisms/StudanceReportStatus/StudanceReportStatus";
+import { student } from "@/query";
+import { useQuery } from "@tanstack/react-query";
 import { BookOpen, Calendar } from "lucide-react";
 import React from "react";
 
 export default function StudentHome() {
+  const { data, isloadin } = useQuery({ ...student() });
+  console.log(data?.data?.data);
+  
+
   return (
     <div>
       <div className="flex flex-wrap justify-center w-full  mx-auto w-[1200px] gap-8">
@@ -35,7 +41,7 @@ export default function StudentHome() {
           </div>
         </div>
         <div className="w-full max-w-[550px] border border-1  border-[#29323CFF] p-4 rounded-xl">
-        <StudanceReportStatus/>
+          <StudanceReportStatus />
         </div>
       </div>
       <div></div>

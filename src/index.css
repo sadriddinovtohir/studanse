@@ -10,7 +10,7 @@
   --cardcolor: linear-gradient(135deg, #1d1f51ff, #6c3535ff);
   --textGrey: #677080ff;
   --btnBgPrimary: #141e2fff;
-  --btnBgHoverSecondry:rgba(97, 27, 188, 0.436);
+  --btnBgHoverSecondry: rgba(97, 27, 188, 0.436);
   --btnblue: rgba(72, 130, 216, 0.581);
   --btnBgHoverPrimary: rgba(0, 68, 195, 0.58);
 }
@@ -19,7 +19,7 @@
   --textGrey: #677080ff;
   --btnblue: rgba(135, 174, 232, 0.581);
   --btnBgHoverPrimary: rgba(0, 68, 195, 0.58);
-  --btnBgHoverSecondry:rgba(97, 27, 188, 0.436);
+  --btnBgHoverSecondry: rgba(97, 27, 188, 0.436);
   --iconsColor: #2b7fffff;
   --bgColor: 48, 100%, 99%;
   --cardcolor: #ebeaf9ff;
@@ -54,9 +54,9 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --dashbordcolor:300, 100%, 100%;
+    --dashbordcolor: 300, 100%, 100%;
   }
-  
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -82,17 +82,22 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --dashbordcolor:274, 19%, 7%;
+    --dashbordcolor: 274, 19%, 7%;
   }
 }
 
 .active {
-  background: linear-gradient(90deg, rgba(210, 224, 250, 1) 0%, rgba(234, 214, 249, 1) 100%);
-  border: 1px solid #B1BEFE;
+  background: linear-gradient(
+    90deg,
+    rgba(210, 224, 250, 1) 0%,
+    rgba(234, 214, 249, 1) 100%
+  );
+  border: 1px solid #b1befe;
   border-radius: 12px;
   color: hsl(var(--bgColor));
 }
 
-body{
+body {
   background-color: var(--bgColor);
+  overflow: hidden;
 }

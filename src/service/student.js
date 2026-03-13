@@ -19,3 +19,7 @@ export const studentDelete = (id) => {
 export const studentById = (id) => {
     return request({ method: "GET", url: `/student/${id}` });
 };
+//get sutdent data 
+export const studentGet = () =>{
+    return request({method:"GET", url:"/student/info"})
+}
