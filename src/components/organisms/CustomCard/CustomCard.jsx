@@ -147,6 +147,7 @@ export default function CustomCard({
             </div>
           ) : null}
         </div>
+        Tohirbek007
 
         {/* Arrow button */}
       </div>
