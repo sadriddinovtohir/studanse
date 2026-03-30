@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
     adminClassesstudentsQuery,
     adminQuery,
+    classGroupByIdQuery,
     lessonQuery,
     reasonQuery,
     studentQuery,
@@ -27,6 +28,7 @@ const DETAIL_QUERY_CONFIG = {
     Admin: (id) => adminQuery(id),
     Lesson: (id) => lessonQuery(id),
     Subject: (id) => subjectQuery(id),
+    Class: (id) => classGroupByIdQuery(id),
     Reason: (id) => reasonQuery(id),
 };
 
@@ -106,13 +108,19 @@ export default function AdminMasteringCreate({
             fieldName
         ] ?? [];
 
+    const LessonData = {
+        ...detailData?.data?.data,
+        isActive: String(detailData?.data?.data?.isActive),
+    };
+
     const editDataMap = {
         Student: detailData?.data?.data,
         Teacher: detailData?.data?.data,
         Admin: detailData?.data?.data,
-        Lesson: detailData?.data?.data,
+        Lesson: LessonData,
         Subject: detailData?.data?.data,
         Reason: detailData?.data?.data,
+        Class: detailData?.data?.data,
         School: school?.[0],
     };
 
@@ -125,9 +133,12 @@ export default function AdminMasteringCreate({
             reset(config.defaultValues);
             return;
         }
+
         const editData = editDataMap[config.title];
-        if (editData) reset(editData);
-    }, [open, id, detailData]);
+        if (!editData) return;
+
+        reset(editData);
+    }, [open, id, detailData, isSchool]);
 
     const schoolId = school?.[0]?.id;
 
@@ -190,7 +201,7 @@ export default function AdminMasteringCreate({
                     <div key={field.name}>
                         {field.type === "select" ? (
                             <CustomSelect
-                                name={field.name}
+                                name={field?.name}
                                 label={field.label}
                                 control={control}
                                 options={getOptions(field.name)}

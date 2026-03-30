@@ -220,6 +220,7 @@ export const getValues = (entityType) => {
                     },
                     {
                         name: "classGroupId",
+                        editName: "classGroupName",
                         label: "Class GroupId",
                         type: "select",
                         options: [],
@@ -395,13 +396,13 @@ export const getValues = (entityType) => {
                         type: "text",
                         required: false,
                     },
-                    {
-                        name: "status",
-                        label: "Status",
-                        type: "select",
-                        options: [],
-                        required: true,
-                    },
+                    // {
+                    //     name: "status",
+                    //     label: "Status",
+                    //     type: "select",
+                    //     options: [],
+                    //     required: true,
+                    // },
                     {
                         name: "teacherId",
                         label: "Teacher",
