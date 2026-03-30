@@ -21,29 +21,25 @@ export function useInfiniteScroll({ queryKey, queryFn, pageSize = 3 }) {
 
   const lastItemRef = React.useCallback(
     (node) => {
-      if (isFetchingNextPage) return;
       if (observer.current) observer.current.disconnect();
+      if (!node) return;
 
       observer.current = new IntersectionObserver(
         (entries) => {
-          if (entries[0].isIntersecting && hasNextPage) {
+          if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
             fetchNextPage();
           }
         },
-        { threshold: 1.0 }, // ← element TO'LIQ ko'ringanda trigger
+        { threshold: 0.5 }, // 10% ko'rinsayoq trigger
       );
 
-      if (node) observer.current.observe(node);
+      observer.current.observe(node);
     },
     [hasNextPage, isFetchingNextPage, fetchNextPage],
   );
 
- 
-
   const allData =
     data?.pages?.flatMap((page) => page?.data?.content ?? []) ?? [];
-
-
 
   return {
     allData,

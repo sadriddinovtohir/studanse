@@ -101,3 +101,11 @@ body {
   background-color: var(--bgColor);
   overflow: hidden;
 }
+.container{
+  max-width: 1200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}

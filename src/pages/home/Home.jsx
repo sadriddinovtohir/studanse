@@ -1,6 +1,7 @@
 import React, { useContext, Suspense, lazy } from "react";
 import { UserContext } from "@/context/UserContext";
 import NotFound from "../not-found/NotFound";
+import { Spinner } from "@/components/ui/spinner";
 
 const SuperAdminHome = lazy(
   () => import("@/components/template/SuperAdminHome/SuperAdminHome"),
@@ -19,7 +20,7 @@ export default function Home() {
   const { roles } = useContext(UserContext);
 
   if (!roles) {
-    return <p>Loading role...</p>;
+    return <Spinner className={"text-textColor"} />;
   }
   const renderHome = () => {
     switch (roles) {
@@ -36,5 +37,15 @@ export default function Home() {
     }
   };
 
-  return <Suspense fallback={<p>Loading...</p>}>{renderHome()}</Suspense>;
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center h-[100vh] items-center">
+          {<Spinner  className={"text-textColor w-12 h-12"} />}
+        </div>
+      }
+    >
+      {renderHome()}
+    </Suspense>
+  );
 }

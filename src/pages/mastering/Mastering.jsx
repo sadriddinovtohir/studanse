@@ -2,6 +2,7 @@ import AdminMastering from "@/components/template/AdminMastering/AdminMastering"
 import SuperAdminMastering from "@/components/template/SuperAdminMastering/SuperAdminMastering";
 import { UserContext } from "@/context/UserContext";
 import React, { useContext } from "react";
+import NotFound from "../not-found/NotFound";
 
 export default function Mastering() {
     const { roles } = useContext(UserContext);

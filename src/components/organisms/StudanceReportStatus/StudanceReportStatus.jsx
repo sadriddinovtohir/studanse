@@ -9,7 +9,7 @@ import { CustomTextarea } from "../CustomTextarea";
 export default function StudanceReportStatus() {
   const { control } = useForm();
   const [state, setstate] = React.useState(null);
-  console.log(state);
+  // console.log(state);
 
   return (
     <div className="px-6">
@@ -19,14 +19,14 @@ export default function StudanceReportStatus() {
           Choose the type of report you'd like to submit
         </p>
       </div>
-      <div className="py-4 flex justify-between items-center">
+      <div className="py-4 flex justify-between items-center gap-4">
         <Button
           onClick={() => setstate(true)}
           variant={"outline"}
-          className={`text-textColor bg-btnblue border-2 border-iconsColor rounded-xl flex flex-col w-full max-w-[220px] h-[80px] hover-scale hover:bg-btnBgHoverPrimary  ${state == true ? "shadow-[0_0_15px_#8CD7FAFF] bg-btnBgHoverPrimary" : null} `}
+          className={`text-textColor bg-btnblue border-2 border-iconsColor rounded-xl flex flex-col w-full max-w-[50%] h-[80px] hover-scale hover:bg-btnBgHoverPrimary  ${state == true ? "shadow-[0_0_15px_#8CD7FAFF] bg-btnBgHoverPrimary text-white" : null} `}
         >
           <span
-            className={`text-white bg-[#2B7FFFFF] w-6 h-6  rounded-[100%] ${state == true ? "bg-[#2266CCFF]" : "bg-[#17294DFF] "} `}
+            className={`text-textColor bg-[#2B7FFFFF] w-6 h-6  rounded-[100%] ${state == true ? "bg-[#2266CCFF]" : "bg-[#17294DFF] "} `}
           >
             A
           </span>
@@ -35,10 +35,10 @@ export default function StudanceReportStatus() {
         <Button
           onClick={() => setstate(false)}
           variant={"outline"}
-          className={`text-textColor bg-[#1A1A2EFF ] border-2 border-[#AD46FFFF] rounded-xl flex flex-col w-full max-w-[220px] h-[80px] hover-scale hover:bg-btnBgHoverSecondry hover:text-white ${state == false ? "shadow-[0_0_15px_#5D2D92FF] bg-btnBgHoverSecondry text-white" : null} `}
+          className={`text-textColor bg-[#1A1A2EFF ] border-2 border-[#AD46FFFF] rounded-xl flex flex-col w-full max-w-[50%] h-[80px] hover-scale hover:bg-btnBgHoverSecondry hover:text-textColor ${state == false ? "shadow-[0_0_15px_#5D2D92FF] bg-btnBgHoverSecondry text-white" : null} `}
         >
           <span
-            className={`text-white bg-[#AD46FFFF] w-6 h-6 flex justify-center items-center  rounded-[50%] ${state == false ? "bg-[#AD46FFFF]" : "bg-[#3B235BFF] "} `}
+            className={`text-textColor bg-[#AD46FFFF] w-6 h-6 flex justify-center items-center  rounded-[50%] ${state == false ? "bg-[#AD46FFFF]" : "bg-[#3B235BFF] "} `}
           >
             <Clock />
           </span>

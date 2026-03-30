@@ -42,50 +42,53 @@ export default function CustomCard({
   abents,
   late,
   mkClass,
+  height,
 }) {
   const isActive = BadgeVariants === "ACTIVE";
-  
+
   if (isLoading) {
-  return (
-    <div className="w-full max-w-[450px]  rounded-2xl p-5 border border-white/[0.07] shadow-2xl">
-      <div className="flex justify-between items-center mb-4">
-        <Skeleton className="w-12 h-12 rounded-xl" />
-        <Skeleton className="w-20 h-6 rounded-full" />
-      </div>
-
-      <Skeleton className="w-[70%] h-6 mb-2" />
-      <Skeleton className="w-[50%] h-4 mb-4" />
-
-      <div className="flex justify-between">
-        <div className="space-y-2">
-          <Skeleton className="w-32 h-4" />
-          <Skeleton className="w-28 h-4" />
+    return (
+      <div className="w-full max-w-[450px]  rounded-2xl p-5 border border-white/[0.07] shadow-2xl">
+        <div className="flex justify-between items-center mb-4">
+          <Skeleton className="w-12 h-12 rounded-xl" />
+          <Skeleton className="w-20 h-6 rounded-full" />
         </div>
 
-        <div className="space-y-2">
-          <Skeleton className="w-28 h-4" />
-          <Skeleton className="w-24 h-4" />
+        <Skeleton className="w-[70%] h-6 mb-2" />
+        <Skeleton className="w-[50%] h-4 mb-4" />
+
+        <div className="flex justify-between">
+          <div className="space-y-2">
+            <Skeleton className="w-32 h-4" />
+            <Skeleton className="w-28 h-4" />
+          </div>
+
+          <div className="space-y-2">
+            <Skeleton className="w-28 h-4" />
+            <Skeleton className="w-24 h-4" />
+          </div>
+        </div>
+
+        <div className="flex justify-end mt-6">
+          <Skeleton className="w-9 h-9 rounded-full" />
         </div>
       </div>
-
-      <div className="flex justify-end mt-6">
-        <Skeleton className="w-9 h-9 rounded-full" />
-      </div>
-    </div>
-  );
-}
+    );
+  }
 
   return (
-    <div className="w-full max-w-[450px] h-[280px] rounded-2xl p-5 border border-white/[0.07] shadow-2xl bg-transpatent hover-scale">
+    <div
+      className={`w-full max-w-[450px]  rounded-2xl p-5 border border-white/[0.07] shadow-2xl bg-transpatent hover-scale`}
+      style={{ height: height ? height : "265px" }}
+    >
       {/* Top row */}
       <div className="flex justify-between items-center mb-3.5">
         <CustomAvatar src={src} fallback={avatarFallback} />
 
         {Badgeboolean ? (
           <span
-            className={`${
-              isActive ? "bg-green-500" : "bg-red-500"
-            } text-white font-bold text-xs tracking-widest px-3.5 py-1 rounded-full uppercase`}
+            className={`${isActive ? "bg-green-500" : "bg-red-500"
+              } text-white font-bold text-xs tracking-widest px-3.5 py-1 rounded-full uppercase`}
           >
             {isActive ? "ACTIVE" : "BLOCKED"}
           </span>
@@ -121,10 +124,12 @@ export default function CustomCard({
               <span>Class: {mkClass} </span>
             </div>
           ) : null}
-         {classes ?  <div className="flex items-center gap-2 text-gray-400 text-sm">
-            <Building size={18} className="text-yellow-800" />
-            <span>Classes: {classes}</span>
-          </div> : null}
+          {classes ? (
+            <div className="flex items-center gap-2 text-gray-400 text-sm">
+              <Building size={18} className="text-yellow-800" />
+              <span>Classes: {classes}</span>
+            </div>
+          ) : null}
         </div>
 
         {/* Right column */}
@@ -145,7 +150,7 @@ export default function CustomCard({
 
         {/* Arrow button */}
       </div>
-      <div  className="mt-5 flex items-end ">
+      <div className="mt-5 flex items-end ">
         <div className="flex items-center gap-4">
           {abents ? (
             <div className="flex items-center gap-2 text-textColor">
@@ -177,7 +182,8 @@ export default function CustomCard({
     </div>
   );
 }
-    {/*
+{
+  /*
       import { Skeleton } from "@/components/ui/skeleton";
 import {
   Building,
@@ -350,6 +356,5 @@ export default function CustomCard({
     </div>
   );
 }
-
-      */}
-
+ */
+}

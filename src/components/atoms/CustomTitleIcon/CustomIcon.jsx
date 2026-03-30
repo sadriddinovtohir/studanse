@@ -6,13 +6,13 @@ export default function CustomIcon({
   title = "Title",
   titlesize,
   iconColor = "text-iconsColor",
-  iconsize = 30
+  iconsize = 30,
 }) {
   const defaultIconBox =
     "w-[45px] h-[45px] bg-titleBgColor border-2 border-iconsColor flex justify-center items-center rounded-[30%]";
 
   return (
-    <div className="mt-4 mb-8 flex items-center gap-3">
+    <div className="mt-4 mb-3 flex items-center gap-3">
       <div className={`${defaultIconBox} ${className || ""}`}>
         {Icon && <Icon size={iconsize} className={iconColor} />}
       </div>

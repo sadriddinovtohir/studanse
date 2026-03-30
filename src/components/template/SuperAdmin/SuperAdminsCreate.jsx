@@ -186,9 +186,7 @@ export default function SuperAdminsCreate({ open, setOpen, id, setId }) {
               >
                 Cancel
               </Button>
-              <Button  variant="primary">
-                Update
-              </Button>
+              <Button variant="primary">Update</Button>
             </div>
           </form>
         </div>

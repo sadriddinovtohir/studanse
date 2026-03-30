@@ -48,7 +48,7 @@ export const DashboardLayout = () => {
         </div>
 
         <Suspense fallback={<div>Loading...</div>}>
-          <div className="flex-1 overflow-auto p-4 bg-gray-50 dark:bg-gray-900 max-h-screen">
+          <div className="flex-1 overflow-auto p-4 bg-gray-50 dark:bg-gray-900 max-h-screen pb-[80px]">
             <Outlet />
           </div>
         </Suspense>

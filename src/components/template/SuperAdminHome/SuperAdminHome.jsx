@@ -23,8 +23,10 @@ export default function SuperAdminHome() {
 
   const isMobile = useMediaQuery("(max-width: 1212px)");
 
+  console.log(allSchools);
+  
   return (
-    <div>
+    <div className="mb-[100px]">
       <CustomIcon
         icon={Building2}
         title={"System Admin Dashboard"}
@@ -32,45 +34,44 @@ export default function SuperAdminHome() {
       />
 
       <div
-        className={`flex ${
-          isMobile ? "justify-center" : "justify-start"
-        } gap-5 flex-wrap`}
+        className={`flex ${isMobile ? "justify-center" : "justify-start"
+          } gap-5 flex-wrap`}
       >
         {isLoading
           ? Array(6)
-              .fill(0)
-              .map((_, i) => <CustomCard key={i} isLoading />)
+            .fill(0)
+            .map((_, i) => <CustomCard key={i} isLoading />)
           : allSchools?.map((item, index) => {
-              // ← null o'rniga key bilan fragment qaytaramiz
-              if (!item || !item.address)
-                return <React.Fragment key={item?.id ?? index} />;
+            // ← null o'rniga key bilan fragment qaytaramiz
+            if (!item || !item.address)
+              return <React.Fragment key={item?.id ?? index} />;
 
-              const isLast = allSchools.length === index + 1;
+            const isLast = allSchools.length === index + 1;
 
-              return (
-                <div
-                  ref={isLast ? lastItemRef : null}
-                  key={item.id}
-                  onClick={() => {
-                    setSelectedSchool(item);
-                    setOpen(true);
-                  }}
-                  className="w-full max-w-[450px]"
-                >
-                  <CustomCard
-                    BadgeVariants={String(item?.status)}
-                    Badgeboolean
-                    avatarFallback={item?.countryCode}
-                    title={String(item?.schoolName)}
-                    established={item?.establishedYear}
-                    students={item?.totalStudents}
-                    classes={item?.totalClassGroups}
-                    teachers={item?.totalTeachers}
-                    admins={item?.totalAdmins}
-                  />
-                </div>
-              );
-            })}
+            return (
+              <div
+                ref={isLast ? lastItemRef : null}
+                key={item.id}
+                onClick={() => {
+                  setSelectedSchool(item);
+                  setOpen(true);
+                }}
+                className="w-full max-w-[450px]"
+              >
+                <CustomCard
+                  BadgeVariants={String(item?.status)}
+                  Badgeboolean
+                  avatarFallback={item?.countryCode}
+                  title={String(item?.schoolName)}
+                  established={item?.establishedYear}
+                  students={item?.totalStudents}
+                  classes={item?.totalClassGroups}
+                  teachers={item?.totalTeachers}
+                  admins={item?.totalAdmins}
+                />
+              </div>
+            );
+          })}
       </div>
 
       {isFetchingNextPage && (
