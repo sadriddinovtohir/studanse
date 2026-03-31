@@ -17,6 +17,7 @@ import {
   superAdminMe,
 } from "@/service/super-admin";
 import { teacherAdminAll, teacherAll, teacherById } from "@/service/teacher";
+import { getUserSettings } from "@/service/user";
 
 // school
 export const schoolsAllQuery = () => {
@@ -212,3 +213,11 @@ export const teacherClassesstudentsQuery = () =>{
     queryFn: async()=> TeacherClasses()
   }
 }
+
+// user settings
+export const getUserSettingsQuery = () => {
+  return {
+    queryKey: ["user-settings"],
+    queryFn: async () => getUserSettings()
+  }
+} 
