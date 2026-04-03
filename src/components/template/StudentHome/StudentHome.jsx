@@ -2,7 +2,7 @@ import CustomIcon from "@/components/atoms/CustomTitleIcon/CustomIcon";
 import StudanceReportStatus from "@/components/organisms/StudanceReportStatus/StudanceReportStatus";
 import { ThemaContext } from "@/context/ThemaContext";
 import { userMeQuery } from "@/query";
-import { attendeseDeleteMutation } from "@/service/lesson";
+import { attendeseDeleteMutation, attendeseEditeMutation } from "@/service/lesson";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { BookOpen, BookOpenCheck, Calendar, Clock, Pencil, Trash2, User } from "lucide-react";
 import React, { useContext } from "react";
@@ -14,6 +14,7 @@ export default function StudentHome() {
   const queriyclient = useQueryClient()
 
   const [deletingId, setDeletingId] = React.useState(null);
+  const [editId, setEditId] = React.useState(null);
 
   const { mutate } = useMutation({
     mutationFn: attendeseDeleteMutation,
@@ -116,7 +117,7 @@ export default function StudentHome() {
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${badgeStyle}`}>
                           {isLate ? "Late" : "Absence"}
                         </span>
-                        <button onClick={() => (res.reasonId)} className="text-gray-400 hover:text-gray-200 transition">
+                        <button onClick={() => setEditId(res)} className="text-gray-400 hover:text-gray-200 transition">
                           <Pencil size={15} />
                         </button>
                         <button onClick={() => {
@@ -147,6 +148,18 @@ export default function StudentHome() {
                 );
               })}
             </div>
+            {editId && (
+              <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+                <div className={`w-full max-w-md rounded-2xl p-4 ${cardClass}`}>
+                  <button onClick={() => setEditId(null)} className="text-gray-400 float-right">✕</button>
+                  <StudanceReportStatus
+                    schoolReasons={schoolReasons}
+                    editData={editId}        
+                    onClose={() => setEditId(null)}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           <div className={`text-textColor ${cardClass}`}>

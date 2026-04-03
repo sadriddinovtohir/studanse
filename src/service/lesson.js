@@ -27,7 +27,10 @@ export const attendancePost = (payload) => {
 };
 
 //delete
-export const  attendeseDeleteMutation = (id) => {
+export const attendeseDeleteMutation = (id) => {
   return request({ method: "DELETE", url: `/scheduled-attendance/${id}` });
 };
 
+export const attendeseEditeMutation = (id, payload) => {
+  return request({ method: "PUT", url: `/scheduled-attendance/${id}`, data:payload });
+};

@@ -8,15 +8,20 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Clock, Send } from "lucide-react";
 import { useState, memo } from "react";
+import { attendeseEditeMutation } from "@/service/lesson";
 
 const ABSENT = "ABSENT";
 const LATE = "LATE";
 
-const StudanceReportStatus = memo(({ schoolReasons }) => {
+const StudanceReportStatus = memo(({ schoolReasons, editData, onClose }) => {
   const { control, handleSubmit, reset } = useForm({
-    defaultValues: { date: new Date().toISOString().split("T")[0] },
+    defaultValues: {
+      date: editData?.date ?? new Date().toISOString().split("T")[0],
+      reasonId: editData?.reasonId ?? "",
+      comment: editData?.comment ?? "",
+    }
   });
-  const [state, setState] = useState(null);
+  const [state, setState] = useState(editData?.type ?? null);
   const queryClient = useQueryClient();
 
   const reasonOptions = schoolReasons?.map(({ id, name }) => ({
@@ -24,20 +29,31 @@ const StudanceReportStatus = memo(({ schoolReasons }) => {
     label: name,
   })) ?? [];
 
+
   const { mutate, isPending } = useMutation({
-    mutationFn: attendancePostMutation,
+    mutationFn: (payload) => {
+      console.log("final payload:", payload);
+      return editData
+        ? attendeseEditeMutation(editData.scheduledAttendaceId, payload)
+        : attendancePostMutation(payload);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(userMeQuery().queryKey);
       reset();
       setState(null);
-      toast.success("Success");
+      onClose?.();
+      toast.success(editData ? "Updated!" : "Created!");
     },
     onError: (error) => toast.error(error.message),
   });
 
-  const onSubmit = ({ date, reasonId, comment }) =>
-    mutate({ status: state, date, reasonId, comment });
-
+  const onSubmit = ({ date, reasonId, comment }) => {
+    if (editData) {
+      mutate({ attendanceStatus: state, requestedDate: date, reasonId, comment });
+    } else {
+      mutate({ status: state, date, reasonId, comment });
+    }
+  };
   return (
     <section aria-label="Report Your Status" className="px-6">
       <header className="text-center">
