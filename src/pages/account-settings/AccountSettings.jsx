@@ -15,15 +15,15 @@ const SuperAdminSettings = lazy(
 const TeacherSettings = lazy(
   () => import("@/components/template/TeacherSettings/TeacherSettings"),
 );
-import { Spinner } from "@/components/ui/spinner";
 import { UserContext } from "@/context/UserContext";
 import React, { Suspense, useContext } from "react";
+import { WaveLoader } from "@/components/atoms/Loaer/Weveloader";
 
 export default function AccountSettings() {
   const { roles } = useContext(UserContext);
 
   if (!roles) {
-    return <Spinner className={"text-textColor"} />;
+    return <WaveLoader />;
   }
   const renderSettings = () => {
     switch (roles) {
@@ -44,7 +44,7 @@ export default function AccountSettings() {
       <Suspense
         fallback={
           <div className="flex justify-center h-[100vh] items-center">
-            {<Spinner className={"text-textColor w-12 h-12"} />}
+            {<WaveLoader />}
           </div>
         }
       >

@@ -1,5 +1,5 @@
 import { schoolById, schoolMine, schoolsAll } from "@/service/school";
-import { adminAll, adminById } from "@/service/admin";
+import { adminAll, adminById, adminGetInfo } from "@/service/admin";
 import {
   adminClassesStudents,
   classGroup,
@@ -7,11 +7,7 @@ import {
   classGroupById,
   TeacherClasses,
 } from "@/service/class";
-import {
-  attendancePost,
-  lessonAll,
-  lessonById,
-} from "@/service/lesson";
+import { attendancePost, lessonAll, lessonById } from "@/service/lesson";
 import { reasonAll, reasonById } from "@/service/reason";
 import {
   studentAtechment,
@@ -28,6 +24,7 @@ import {
 } from "@/service/super-admin";
 import { teacherAdminAll, teacherAll, teacherById } from "@/service/teacher";
 import { getUserSettings } from "@/service/user";
+import { adminInfoStudentID } from "@/service/info";
 
 // school
 export const schoolsAllQuery = () => {
@@ -108,6 +105,13 @@ export const adminClassesstudentsQuery = () => {
   };
 };
 
+export const adminInfoGetStudentQuery = (id) => {
+  return {
+    queryKey: ["admin-student-info-id", id],
+    queryFn: async () => adminInfoStudentID(id),
+  };
+};
+
 export const studentsAllQuery = (params, data) => {
   return {
     queryKey: ["students-all", params, data],
@@ -126,7 +130,6 @@ export const studentQuery = (id) => {
 export const attendancePostMutation = (payload) => {
   return attendancePost(payload);
 };
-
 
 // teacher
 export const teacherAllQuery = (params, data) => {
@@ -162,6 +165,13 @@ export const adminQuery = (id) => {
   return {
     queryKey: ["admin", id],
     queryFn: async () => adminById(id),
+  };
+};
+export const adminInfoQuery = (classId) => {
+  // const { classId } = selectedClass;
+  return {
+    queryKey: ["admin-info", classId],
+    queryFn: async () => adminGetInfo(classId),
   };
 };
 

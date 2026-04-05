@@ -154,7 +154,7 @@ export default function StudentHome() {
                   <button onClick={() => setEditId(null)} className="text-gray-400 float-right">✕</button>
                   <StudanceReportStatus
                     schoolReasons={schoolReasons}
-                    editData={editId}        
+                    editData={editId}
                     onClose={() => setEditId(null)}
                   />
                 </div>

@@ -18,24 +18,26 @@ export function CustomInput({
   return (
     <div className={cn("space-y-2", containerClassName)}>
       {label && (
-        <label className="dark:text-white text-sm font-medium text-foreground">
+        <label className="text-textColor text-sm font-medium text-foreground">
           {label}
         </label>
       )}
 
       <Controller
+      className="text-textColor"
         name={name}
         control={control}
         render={({ field, fieldState }) => (
           <>
             <div className="relative">
               {leftElement && (
-                <div className="absolute left-3 top-1/2 -translate-y-1/2">
+                <div className="absolute  left-3 top-1/2 -translate-y-1/2">
                   {leftElement}
                 </div>
               )}
 
               <Input
+              
                 {...field}
                 {...props}
                 value={field.value ?? ""}
@@ -44,7 +46,7 @@ export function CustomInput({
                   leftElement && "pl-10",
                   rightElement && "pr-10",
                   fieldState.error &&
-                    "border-red-500 focus-visible:ring-red-500",
+                  "border-red-500 text-rextColor focus-visible:ring-red-500",
                   className,
                 )}
               />
