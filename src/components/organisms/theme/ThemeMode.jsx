@@ -1,20 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { loadState, saveState } from "@/config/storej";
+import { ThemaContext } from "@/context/ThemaContext";
 import { Moon, Sun } from "lucide-react";
-import React from "react";
+import React, { useContext } from "react";
 
 export default function ThemeMode() {
-  const [theme, setTheme] = React.useState(loadState("theme") || "dark");
+
+  const { _, setThema } = useContext(ThemaContext);
+
+  const [theme, setTheme] = React.useState(loadState("thema") || "dark");
   React.useEffect(() => {
     const body = document.body;
     if (theme == "dark") {
       body.classList.remove("light");
       body.classList.add("dark");
-      saveState("theme", "dark");
+      saveState("thema", "dark"); 
+      setThema("dark")
     } else {
       body.classList.remove("dark");
       body.classList.add("light");
-      saveState("theme", "light");
+      saveState("thema", "light");
+      setThema("light")
     }
   }, [theme]);
 

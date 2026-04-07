@@ -1,3 +1,5 @@
+
+import { useMediaQuery } from "@/components/atoms/UseMediaQuery/UseMediaQuery";
 import CustomCard from "@/components/organisms/CustomCard/CustomCard";
 import DataCard from "@/components/organisms/DataCard";
 import { teacherClassesstudentsQuery, userMeQuery } from "@/query";
@@ -11,7 +13,10 @@ export default function TeacherHome() {
   const Clases = secondData?.data?.data || [];
 
   const groupState = data?.data?.classGroupStats || [];
-  console.log(secondData);
+  const AllData = data?.data?.classGroupStats || [];
+
+
+  const isMobile = useMediaQuery("(max-width: 912px)");
 
 
   return (
@@ -25,22 +30,19 @@ export default function TeacherHome() {
         titleSize={22}
         data={groupState}
       />
-      <div className="flex justify-around gap-y-5 flex-wrap w-full ">
-
-        {Clases?.map((item) => (
-          <Link>
-
-            <div className="w-[400px]" key={item.classId}>
+      <div className={`flex justify-center ${isMobile ? "justify-center" : "justify-between"} gap-5 flex-wrap w-full `}>
+    
+        {AllData?.map((item, index) => (
+          <Link key={index}>
+            <div className="w-[400px]">
               <CustomCard
                 height={230}
-                // BadgeVariants="active"
                 Badgeboolean={false}
-                deta={item?.students.length + " students"}
-                // src={user}
-                title={item.className}
+                deta={item?.totalStudents}
+                title={item.lessonName}
                 mkClass={item.className}
-              // abents={2}
-              // late={1}
+                abents={item.absentStudents}
+                late={item.lateStudents}
               />
             </div>
           </Link>

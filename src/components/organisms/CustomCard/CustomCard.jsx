@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { ThemaContext } from "@/context/ThemaContext";
 import {
   Building,
   ChevronRight,
@@ -7,7 +8,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import React from "react";
+import React, { useContext } from "react";
 
 function CustomAvatar({ src, fallback = "US" }) {
   return (
@@ -46,6 +47,10 @@ export default function CustomCard({
 }) {
   const isActive = BadgeVariants === "ACTIVE";
 
+
+  
+    const { thema } = useContext(ThemaContext)
+
   if (isLoading) {
     return (
       <div className="w-full max-w-[450px]  rounded-2xl p-5 border border-white/[0.07] shadow-2xl">
@@ -78,10 +83,10 @@ export default function CustomCard({
 
   return (
     <div
-      className={`w-full max-w-[450px]  rounded-2xl p-5 border border-white/[0.07] shadow-2xl bg-transpatent hover-scale`}
+      className={`w-full max-w-[450px]  rounded-2xl p-5 border border-white/[0.07] shadow-2xl bg-transpatent hover-scale  ${thema === "dark" ? "bg-[#1D212BFF]  " : "bg-[#F6F5F9FF] shadow-[0_10px_30px_rgba(0,0,0,0.4),_inset_0_1px_1px_rgba(255,255,255,0.05)]"} `}
       style={{ height: height ? height : "265px" }}
     >
-      {/* Top row */}
+    
       <div className="flex justify-between items-center mb-3.5">
         <CustomAvatar src={src} fallback={avatarFallback} />
 
@@ -147,8 +152,6 @@ export default function CustomCard({
             </div>
           ) : null}
         </div>
-        Tohirbek007
-
         {/* Arrow button */}
       </div>
       <div className="mt-5 flex items-end ">

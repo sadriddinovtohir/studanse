@@ -68,11 +68,11 @@ export const router = createBrowserRouter([
                         loader: roleLoader(getRolesByPath("/settings")),
                         element: <AccountSettings />,
                     },
-                    {
-                        path: "/communications",
-                        loader: roleLoader(getRolesByPath("/communications")),
-                        element: <Communications />,
-                    },
+                    // {
+                    //     path: "/communications",
+                    //     loader: roleLoader(getRolesByPath("/communications")),
+                    //     element: <Communications />,
+                    // },
                 ],
             },
         ],

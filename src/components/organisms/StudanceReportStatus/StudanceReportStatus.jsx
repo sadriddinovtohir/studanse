@@ -1,87 +1,108 @@
 import { CustomInput } from "@/components/molecules/CustomInput";
 import { CustomSelect } from "@/components/molecules/CustomSelect";
-import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Send } from "lucide-react";
-import React from "react";
-import { useForm } from "react-hook-form";
 import { CustomTextarea } from "../CustomTextarea";
+import { Button } from "@/components/ui/button";
+import { attendancePostMutation, userMeQuery } from "@/query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { Clock, Send } from "lucide-react";
+import { useState, memo } from "react";
+import { attendeseEditeMutation } from "@/service/lesson";
 
-export default function StudanceReportStatus() {
-  const { control } = useForm();
-  const [state, setstate] = React.useState(null);
-  // console.log(state);
+const ABSENT = "ABSENT";
+const LATE = "LATE";
 
+const StudanceReportStatus = memo(({ schoolReasons, editData, onClose }) => {
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: {
+      date: editData?.date ?? new Date().toISOString().split("T")[0],
+      reasonId: editData?.reasonId ?? "",
+      comment: editData?.comment ?? "",
+    }
+  });
+  const [state, setState] = useState(editData?.type ?? null);
+  const queryClient = useQueryClient();
+
+  const reasonOptions = schoolReasons?.map(({ id, name }) => ({
+    value: id,
+    label: name,
+  })) ?? [];
+
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (payload) => {
+      console.log("final payload:", payload);
+      return editData
+        ? attendeseEditeMutation(editData.scheduledAttendaceId, payload)
+        : attendancePostMutation(payload);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(userMeQuery().queryKey);
+      reset();
+      setState(null);
+      onClose?.();
+      toast.success(editData ? "Updated!" : "Created!");
+    },
+    onError: (error) => toast.error(error.message),
+  });
+
+  const onSubmit = ({ date, reasonId, comment }) => {
+    if (editData) {
+      mutate({ attendanceStatus: state, requestedDate: date, reasonId, comment });
+    } else {
+      mutate({ status: state, date, reasonId, comment });
+    }
+  };
   return (
-    <div className="px-6">
-      <div className="text-center">
+    <section aria-label="Report Your Status" className="px-6">
+      <header className="text-center">
         <h2 className="text-textColor">Report Your Status</h2>
-        <p className="text-textGrey ">
-          Choose the type of report you'd like to submit
-        </p>
-      </div>
+        <p className="text-textGrey">Choose the type of report you'd like to submit</p>
+      </header>
+
       <div className="py-4 flex justify-between items-center gap-4">
         <Button
-          onClick={() => setstate(true)}
-          variant={"outline"}
-          className={`text-textColor bg-btnblue border-2 border-iconsColor rounded-xl flex flex-col w-full max-w-[50%] h-[80px] hover-scale hover:bg-btnBgHoverPrimary  ${state == true ? "shadow-[0_0_15px_#8CD7FAFF] bg-btnBgHoverPrimary text-white" : null} `}
+          onClick={() => setState(ABSENT)}
+          variant="outline"
+          aria-pressed={state === ABSENT}
+          className={`text-white bg-btnblue border-2 border-iconsColor rounded-xl flex flex-col w-full max-w-[50%] h-[80px] hover-scale hover:bg-btnBgHoverPrimary hover:text-white ${state === ABSENT ? "shadow-[0_0_15px_#8CD7FAFF] bg-btnBgHoverPrimary" : ""
+            }`}
         >
-          <span
-            className={`text-textColor bg-[#2B7FFFFF] w-6 h-6  rounded-[100%] ${state == true ? "bg-[#2266CCFF]" : "bg-[#17294DFF] "} `}
-          >
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-white ${state === ABSENT ? "bg-[#2266CCFF]" : "bg-[#17294DFF]"}`}>
             A
           </span>
           Absence
         </Button>
+
         <Button
-          onClick={() => setstate(false)}
-          variant={"outline"}
-          className={`text-textColor bg-[#1A1A2EFF ] border-2 border-[#AD46FFFF] rounded-xl flex flex-col w-full max-w-[50%] h-[80px] hover-scale hover:bg-btnBgHoverSecondry hover:text-textColor ${state == false ? "shadow-[0_0_15px_#5D2D92FF] bg-btnBgHoverSecondry text-white" : null} `}
+          onClick={() => setState(LATE)}
+          variant="outline"
+          aria-pressed={state === LATE}
+          className={`text-white border-2 border-[#AD46FFFF] rounded-xl flex flex-col w-full max-w-[50%] h-[80px] hover-scale hover:bg-btnBgHoverSecondry hover:text-white ${state === LATE ? "shadow-[0_0_15px_#5D2D92FF] bg-btnBgHoverSecondry" : "bg-btnBgHoverSecondry"
+            }`}
         >
-          <span
-            className={`text-textColor bg-[#AD46FFFF] w-6 h-6 flex justify-center items-center  rounded-[50%] ${state == false ? "bg-[#AD46FFFF]" : "bg-[#3B235BFF] "} `}
-          >
-            <Clock />
+          <span className={`w-6 h-6 flex justify-center items-center rounded-full text-white ${state === LATE ? "bg-[#AD46FFFF]" : "bg-[#3B235BFF]"}`}>
+            <Clock size={14} />
           </span>
           Late
         </Button>
       </div>
-      {state == true || state == false ? (
-        <form>
-          <CustomInput
-            className="text-block bg-gray-200 rounded-xl"
-            name="birthDate"
-            control={control}
-            label="Select Date"
-            type="date"
-          />
-          <p className=" p-2 text-[13px] text-gray-400">
-            Note: Cannot select past dates or Sundays (school closed)
-          </p>
-          <CustomSelect
-            name="status" // formdagi key
-            control={control} // react-hook-form control
-            label="Report Status" // label
-            placeholder="Choose a reason..."
-            className={"rounded-xl bg-gray-200 "}
-            options={[{ value: "fam", label: "Absence" }]}
-          />
-          <CustomTextarea
-            name="message"
-            className={"text-textColor"}
-            control={control}
-            label="Xabar matni"
-            placeholder="Bu yerga matn yozing..."
-            rows={6}
-          />
-          <Button
-            // type="submit"
-            type="button"
-            className=" my-4 py-8 w-[100%] bg-[green] text-white  rounded-xl text-[20px] hover:bg-green-800 "
-          >
-            <Send className="mt-1" /> Send
+
+      {state && (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <CustomInput name="date" control={control} label="Select Date" type="date" className="text-block bg-gray-200 rounded-xl" />
+          <p className="p-2 text-[13px] text-gray-400">Note: Cannot select past dates or Sundays (school closed)</p>
+          <CustomSelect name="reasonId" control={control} label="Select Reason" placeholder="Choose a reason..." className="rounded-xl bg-gray-200 text-black" options={reasonOptions} />
+          <CustomTextarea name="comment" control={control} label="Additional Details (Optional)" placeholder="Add any additional details here..." className="text-textColor" rows={6} />
+          <Button type="submit" disabled={isPending} className="my-4 py-8 w-full bg-[green] text-white rounded-xl text-[20px] hover:bg-green-800">
+            <Send className="mt-1 mr-2" />
+            {isPending ? "Loading..." : "Send"}
           </Button>
         </form>
-      ) : null}
-    </div>
+      )}
+    </section>
   );
-}
+});
+
+export default StudanceReportStatus;

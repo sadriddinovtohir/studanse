@@ -24,9 +24,9 @@ export default function DataCard({
       </div>
 
       <div className="flex flex-col gap-4">
-        {data.map((item) => (
+        {data?.map((item, index) => (
           <div
-            key={item.id}
+            key={index}
             className="w-full border p-3 rounded-xl flex justify-between hover:bg-black/20 transition-colors duration-500 ease-in-out  "
           >
             <div>

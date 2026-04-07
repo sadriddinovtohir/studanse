@@ -23,11 +23,10 @@ export default function AdminHome() {
     queryFn: ({ page, size }) => userMeQuery({ page, size }).queryFn(),
     pageSize: 3,
   });
-  // const schoolData = data?.data?.content || [];
 
   const isMobile = useMediaQuery("(max-width: 1212px)");
 
-  // console.log(schoolData);
+  console.log(schoolData);
   return (
     <div>
       <CustomIcon
@@ -37,28 +36,32 @@ export default function AdminHome() {
         iconsize={20}
       />
       <div
-        className={`flex ${
-          isMobile ? "justify-center" : "justify-start"
-        } gap-5 flex-wrap`}
+        className={`flex ${isMobile ? "justify-center" : "justify-start"
+          } gap-5 flex-wrap`}
       >
         {isLoading
           ? Array(6)
-              .fill(0)
-              .map((_, i) => <CustomCard key={i} isLoading />)
+            .fill(0)
+            .map((_, i) => <CustomCard key={i} isLoading />)
           : schoolData?.map((item, index) => {
-              // ← null o'rniga key bilan fragment qaytaramiz
-              if (!item || item?.className == undefined) return null;
+            // ← null o'rniga key bilan fragment qaytaramiz
+            if (!item || item?.className == undefined) return null;
 
-              const isLast = schoolData.length === index + 1;
+            const isLast = schoolData.length === index + 1;
 
-              return (
-                <div
-                  ref={isLast ? lastItemRef : null}
-                  key={item.id}
-                  className="w-full max-w-[450px]"
-                >
-                  <CustomCard title={String(item?.className)} />
-                  {/* <CustomCard
+            return (
+              <div
+                ref={isLast ? lastItemRef : null}
+                key={index || item.id}
+                className="w-full max-w-[450px]"
+              >
+                <CustomCard title={String(item?.className)}
+                  abents={item?.absentStudents}
+                  height={"210px"}
+                  late={item.lateStudents}
+                  deta={item.totalStudents}
+                />
+                {/* <CustomCard
                     // isLoading={isLoading}
                     BadgeVariants="active"
                     deta={"30-september"}
@@ -68,9 +71,9 @@ export default function AdminHome() {
                     abents={2}
                     late={1}
                   /> */}
-                </div>
-              );
-            })}
+              </div>
+            );
+          })}
         {isFetchingNextPage && (
           <div className="flex justify-center gap-5 flex-wrap mt-5">
             {Array(3)

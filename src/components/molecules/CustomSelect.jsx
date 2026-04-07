@@ -29,7 +29,7 @@ export function CustomSelect({
     return (
         <div className={cn("space-y-2", containerClassName)}>
             {label && (
-                <label className="dark:text-white text-sm font-medium text-foreground">
+                <label className="text-[black] text-sm font-medium text-foreground">
                     {label}
                 </label>
             )}
@@ -47,10 +47,10 @@ export function CustomSelect({
                             {isMulti ? (
                                 <div
                                     className={cn(
-                                        "border rounded-md p-1 min-h-10 flex flex-wrap gap-1",
+                                        "border text-[black] rounded-md p-1 min-h-10 flex flex-wrap gap-1",
                                         fieldState.error && "border-red-500",
                                         (loading || disabled) &&
-                                            "opacity-50 cursor-not-allowed",
+                                        "opacity-50 cursor-not-allowed",
                                         className
                                     )}
                                 >
@@ -85,6 +85,7 @@ export function CustomSelect({
                                     })}
 
                                     <Select
+                                        className="text-[black]"
                                         disabled={loading || disabled}
                                         onValueChange={(val) => {
                                             if (!multiValue.includes(val)) {
@@ -99,8 +100,8 @@ export function CustomSelect({
                                             {loading ? (
                                                 <div className="flex items-center gap-2 text-muted-foreground">
                                                     <div className="h-4 w-4 animate-spin rounded-full border-2 border-muted border-t-primary" />
-                                                    <span className="text-sm">
-                                                        Yuklanmoqda...
+                                                    <span className="text-sm text-[black]">
+                                                        Loading...
                                                     </span>
                                                 </div>
                                             ) : (
@@ -109,7 +110,7 @@ export function CustomSelect({
                                                 />
                                             )}
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="text-[#000]" >
                                             {options
                                                 .filter(
                                                     (opt) =>
@@ -122,6 +123,7 @@ export function CustomSelect({
                                                         key={opt.value}
                                                         value={opt.value}
                                                         disabled={opt.disabled}
+                                                        className="text-[black]"
                                                     >
                                                         {opt.label}
                                                     </SelectItem>
@@ -131,6 +133,7 @@ export function CustomSelect({
                                 </div>
                             ) : (
                                 <Select
+                                    className="text-[black]"
                                     value={field.value ?? ""}
                                     onValueChange={field.onChange}
                                     disabled={loading || disabled}
@@ -139,15 +142,15 @@ export function CustomSelect({
                                     <SelectTrigger
                                         className={cn(
                                             fieldState.error &&
-                                                "border-red-500 focus-visible:ring-red-500",
+                                            "border-red-500  focus-visible:ring-red-500",
                                             className
                                         )}
                                     >
                                         {loading ? (
                                             <div className="flex items-center gap-2 text-muted-foreground">
                                                 <div className="h-4 w-4 animate-spin rounded-full border-2 border-muted border-t-primary" />
-                                                <span className="text-sm">
-                                                    Yuklanmoqda...
+                                                <span className="text-sm text-[black] ">
+                                                    Loading...
                                                 </span>
                                             </div>
                                         ) : (

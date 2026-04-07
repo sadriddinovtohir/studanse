@@ -48,15 +48,15 @@ export const menuItems = [
         ],
         icon: <SettingsIcon className="w-5 h-5" />,
     },
-    {
-        label: "Communications",
-        path: "/communications",
-        roles: [
-            "ROLE_ADMIN",
-            "ROLE_SYSTEM_ADMIN",
-            "ROLE_TEACHER",
-            "ROLE_STUDENT",
-        ],
-        icon: <MailIcon className="w-5 h-5" />,
-    },
+    // {
+    //     label: "Communications",
+    //     path: "/communications",
+    //     roles: [
+    //         "ROLE_ADMIN",
+    //         "ROLE_SYSTEM_ADMIN",
+    //         "ROLE_TEACHER",
+    //         "ROLE_STUDENT",
+    //     ],
+    //     icon: <MailIcon className="w-5 h-5" />,
+    // },
 ];
