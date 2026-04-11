@@ -53,3 +53,5 @@ export default function CustomAdminDataInfo({ type, items, days, months, label }
     }
     return null;
 }
+
+CustomAdminDataInfo.jsx

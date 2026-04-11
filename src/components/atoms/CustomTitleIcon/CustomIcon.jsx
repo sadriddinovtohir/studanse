@@ -8,6 +8,7 @@ export default function CustomIcon({
   iconColor = "text-iconsColor",
   iconsize = 30,
   font,
+  titleColor,
 }) {
   const defaultIconBox =
     "w-[45px] h-[45px] bg-titleBgColor border-2 border-iconsColor flex justify-center items-center rounded-[30%]";
@@ -19,7 +20,7 @@ export default function CustomIcon({
       </div>
 
       <h1
-        className="text-textColor"
+        className={`text-textColor ${titleColor}`}
         style={{ fontSize: titlesize ? `${titlesize}px` : "30px", fontWeight: `${font}` }}
       >
         {title}

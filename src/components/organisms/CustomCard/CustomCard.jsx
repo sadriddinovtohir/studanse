@@ -12,7 +12,7 @@ import React, { useContext } from "react";
 
 function CustomAvatar({ src, fallback = "US" }) {
   return (
-    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center font-bold text-base text-white tracking-wide shrink-0">
+    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center font-bold text-sm text-white tracking-wide shrink-0 shadow-lg shadow-violet-900/40">
       {src ? (
         <img
           src={src}
@@ -44,38 +44,40 @@ export default function CustomCard({
   late,
   mkClass,
   height,
+  grade,
 }) {
   const isActive = BadgeVariants === "ACTIVE";
-
-
-  
-    const { thema } = useContext(ThemaContext)
+  const { thema } = useContext(ThemaContext);
+  const isDark = thema === "dark";
 
   if (isLoading) {
     return (
-      <div className="w-full max-w-[450px]  rounded-2xl p-5 border border-white/[0.07] shadow-2xl">
+      <div
+        className={`w-full max-w-[450px] rounded-2xl p-5 border shadow-xl
+        ${isDark
+            ? "bg-[#16181f] border-white/[0.06]"
+            : "bg-white border-gray-200/80 shadow-gray-200/60"
+          }`}
+        style={{ height: height || "200px" }}
+      >
         <div className="flex justify-between items-center mb-4">
-          <Skeleton className="w-12 h-12 rounded-xl" />
-          <Skeleton className="w-20 h-6 rounded-full" />
+          <Skeleton className="w-11 h-11 rounded-xl" />
+          <Skeleton className="w-16 h-5 rounded-md" />
         </div>
-
-        <Skeleton className="w-[70%] h-6 mb-2" />
-        <Skeleton className="w-[50%] h-4 mb-4" />
-
+        <Skeleton className="w-[65%] h-5 mb-2" />
+        <Skeleton className="w-[40%] h-4 mb-5" />
         <div className="flex justify-between">
           <div className="space-y-2">
-            <Skeleton className="w-32 h-4" />
-            <Skeleton className="w-28 h-4" />
+            <Skeleton className="w-28 h-3.5" />
+            <Skeleton className="w-24 h-3.5" />
           </div>
-
           <div className="space-y-2">
-            <Skeleton className="w-28 h-4" />
-            <Skeleton className="w-24 h-4" />
+            <Skeleton className="w-24 h-3.5" />
+            <Skeleton className="w-20 h-3.5" />
           </div>
         </div>
-
-        <div className="flex justify-end mt-6">
-          <Skeleton className="w-9 h-9 rounded-full" />
+        <div className="flex justify-end mt-5">
+          <Skeleton className="w-8 h-8 rounded-full" />
         </div>
       </div>
     );
@@ -83,282 +85,112 @@ export default function CustomCard({
 
   return (
     <div
-      className={`w-full max-w-[450px]  rounded-2xl p-5 border border-white/[0.07] shadow-2xl bg-transpatent hover-scale  ${thema === "dark" ? "bg-[#1D212BFF]  " : "bg-[#F6F5F9FF] shadow-[0_10px_30px_rgba(0,0,0,0.4),_inset_0_1px_1px_rgba(255,255,255,0.05)]"} `}
-      style={{ height: height ? height : "265px" }}
+      className={`w-full max-w-[450px] rounded-2xl p-5 border cursor-pointer
+        transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl
+        ${isDark
+          ? "bg-gradient-to-br from-[#1a1d27] to-[#16181f] border-white/[0.07] hover:border-white/[0.13] shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+          : "bg-white border-gray-200 hover:border-violet-200 shadow-[0_4px_20px_rgba(0,0,0,0.07)] hover:shadow-violet-100/60"
+        }`}
+      style={{ height: height || "auto", minHeight: "180px" }}
     >
-    
-      <div className="flex justify-between items-center mb-3.5">
+      <div className="flex justify-between items-start mb-3">
         <CustomAvatar src={src} fallback={avatarFallback} />
 
         {Badgeboolean ? (
           <span
-            className={`${isActive ? "bg-green-500" : "bg-red-500"
-              } text-white font-bold text-xs tracking-widest px-3.5 py-1 rounded-full uppercase`}
+            className={`text-white font-semibold text-xs tracking-widest px-3 py-1 rounded-full uppercase
+              ${isActive ? "bg-emerald-500/90" : "bg-red-500/90"}`}
           >
             {isActive ? "ACTIVE" : "BLOCKED"}
           </span>
-        ) : (
-          <p className="text-textColor text-sm ">{deta}</p>
-        )}
+        ) : deta ? (
+          <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>{deta}</p>
+        ) : null}
       </div>
 
-      {/* Title */}
       {title && (
-        <h2 className="text-textColor font-bold text-lg mb-1">{title}</h2>
+        <h2 className={`font-bold text-base mb-0.5 leading-tight ${isDark ? "text-white" : "text-gray-900"}`}>
+          {title}
+        </h2>
       )}
 
-      {/* Established */}
-      {established && (
-        <p className="text-textColor text-sm mb-3.5">
-          Established: {established}
+      {(grade || established) && (
+        <p className={`text-sm mb-3 ${isDark ? "text-gray-500" : "text-gray-400"}`}>
+          {grade || `Est. ${established}`}
         </p>
       )}
 
-      {/* Stats grid */}
-      <div className="flex justify-between items-center mt-1.5">
-        {/* Left column */}
-        <div>
-          {students ? (
-            <div className="flex items-center gap-2 mb-2.5 text-gray-400 text-sm">
-              <GraduationCap size={18} className="text-blue-400" />
-              <span>Students: {students}</span>
-            </div>
-          ) : null}
-          {mkClass ? (
-            <div className="flex items-center gap-2 mb-2.5 text-gray-400 text-sm">
-              <span>Class: {mkClass} </span>
-            </div>
-          ) : null}
-          {classes ? (
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <Building size={18} className="text-yellow-800" />
-              <span>Classes: {classes}</span>
-            </div>
-          ) : null}
+      {(teachers || admins || classes || mkClass || students) && (
+        <div className="flex justify-between items-center mt-2 mb-3">
+          <div>
+            {mkClass && (
+              <div className={`flex items-center gap-1.5 mb-2 text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                <Building size={15} className="text-amber-500" />
+                <span>Class: {mkClass}</span>
+              </div>
+            )}
+            {classes && (
+              <div className={`flex items-center gap-1.5 mb-2 text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                <Building size={15} className="text-amber-500" />
+                <span>Classes: {classes}</span>
+              </div>
+            )}
+            {students !== undefined && students !== null && (
+              <div className={`flex items-center gap-1.5 text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                <GraduationCap size={15} className="text-violet-400" />
+                <span>Students: {students}</span>
+              </div>
+            )}
+          </div>
+          <div>
+            {teachers && (
+              <div className={`flex items-center gap-1.5 mb-2 text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                <Users size={15} className={isDark ? "text-gray-300" : "text-gray-600"} />
+                <span>Teachers: {teachers}</span>
+              </div>
+            )}
+            {admins && (
+              <div className={`flex items-center gap-1.5 text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                <Users size={15} className="text-orange-400" />
+                <span>Admins: {admins}</span>
+              </div>
+            )}
+          </div>
         </div>
-
-        {/* Right column */}
-        <div>
-          {teachers ? (
-            <div className="flex items-center gap-2 mb-2.5 text-gray-400 text-sm">
-              <Users size={18} className="text-textColor" />
-              <span>Teachers: {teachers}</span>
-            </div>
-          ) : null}
-          {admins ? (
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <Users size={18} className="text-orange-500" />
-              <span>Admins: {admins}</span>
-            </div>
-          ) : null}
-        </div>
-        {/* Arrow button */}
-      </div>
-      <div className="mt-5 flex items-end ">
-        <div className="flex items-center gap-4">
-          {abents ? (
-            <div className="flex items-center gap-2 text-textColor">
-              {" "}
-              <span>
-                {" "}
-                <X size={20} color="red" className="mt-1" />
-              </span>
-              <p>abents : {abents}</p>
-            </div>
-          ) : null}
-          {late ? (
-            <div className="flex items-center gap-2 text-textColor">
-              {" "}
-              <span>
-                {" "}
-                <Clock size={15} className="mt-1" />
-              </span>
-              <p>{late} : late</p>
-            </div>
-          ) : null}
-        </div>
-        {showArrow ? (
-          <button className="w-9 h-9  ml-auto rounded-full bg-gray-500 border-none cursor-pointer flex items-center justify-center text-white">
-            <ChevronRight size={18} />
-          </button>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-{
-  /*
-      import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Building,
-  ChevronRight,
-  Clock,
-  GraduationCap,
-  Users,
-  X,
-} from "lucide-react";
-import React from "react";
-
-function CustomAvatar({ src, fallback = "US" }) {
-  return (
-    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center font-bold text-base text-white tracking-wide shrink-0">
-      {src ? (
-        <img
-          src={src}
-          alt="avatar"
-          className="w-full h-full rounded-xl object-cover"
-        />
-      ) : (
-        fallback
       )}
-    </div>
-  );
-}
 
-export default function CustomCard({
-  src,
-  isLoading,
-  avatarFallback,
-  BadgeVariants,
-  Badgeboolean = false,
-  deta,
-  title,
-  established,
-  students,
-  classes,
-  teachers,
-  admins,
-  showArrow = true,
-  abents,
-  late,
-  mkClass,
-}) {
-  const isActive = BadgeVariants === "ACTIVE";
-  
-  if (isLoading) {
-  return (
-    <div className="w-full max-w-[450px] rounded-2xl p-5 border border-white/[0.07] shadow-2xl">
-      <div className="flex justify-between items-center mb-4">
-        <Skeleton className="w-12 h-12 rounded-xl" />
-        <Skeleton className="w-20 h-6 rounded-full" />
-      </div>
-
-      <Skeleton className="w-[70%] h-6 mb-2" />
-      <Skeleton className="w-[50%] h-4 mb-4" />
-
-      <div className="flex justify-between">
-        <div className="space-y-2">
-          <Skeleton className="w-32 h-4" />
-          <Skeleton className="w-28 h-4" />
+      <div className="flex items-center justify-between mt-auto pt-3">
+        <div className="flex items-center gap-4">
+          {abents !== undefined && abents !== null && (
+            <div className="flex items-center gap-1.5">
+              <X size={14} className="text-red-400 shrink-0" />
+              <span className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                {abents} absent
+              </span>
+            </div>
+          )}
+          {late !== undefined && late !== null && (
+            <div className="flex items-center gap-1.5">
+              <Clock size={14} className="text-amber-400 shrink-0" />
+              <span className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                {late} late
+              </span>
+            </div>
+          )}
         </div>
 
-        <div className="space-y-2">
-          <Skeleton className="w-28 h-4" />
-          <Skeleton className="w-24 h-4" />
-        </div>
-      </div>
-
-      <div className="flex justify-end mt-6">
-        <Skeleton className="w-9 h-9 rounded-full" />
-      </div>
-    </div>
-  );
-}
-
-  return (
-    <div className="w-full max-w-[450px] rounded-2xl p-5 border border-white/[0.07] shadow-2xl bg-transpatent hover-scale">
-      <div className="flex justify-between items-center mb-3.5">
-        <CustomAvatar src={src} fallback={avatarFallback} />
-
-        {Badgeboolean ? (
-          <span
-            className={`${
-              isActive ? "bg-green-500" : "bg-red-500"
-            } text-white font-bold text-xs tracking-widest px-3.5 py-1 rounded-full uppercase`}
+        {showArrow && (
+          <button
+            className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors
+              ${isDark
+                ? "bg-white/10 hover:bg-white/20 text-white"
+                : "bg-gray-100 hover:bg-gray-200 text-gray-600"
+              }`}
           >
-            {isActive ? "ACTIVE" : "BLOCKED"}
-          </span>
-        ) : (
-          <p className="text-textColor text-sm ">{deta}</p>
-        )}
-      </div>
-
-      {title && (
-        <h2 className="text-textColor font-bold text-lg mb-1">{title}</h2>
-      )}
-
-      {established && (
-        <p className="text-textColor text-sm mb-3.5">
-          Established: {established}
-        </p>
-      )}
-
-      <div className="flex justify-between items-center mt-1.5">
-        <div>
-          {students && (
-            <div className="flex items-center gap-2 mb-2.5 text-gray-400 text-sm">
-              <GraduationCap size={18} className="text-blue-400" />
-              <span>Students: {students}</span>
-            </div>
-          )}
-          {mkClass && (
-            <div className="flex items-center gap-2 mb-2.5 text-gray-400 text-sm">
-              <span>Class: {mkClass} </span>
-            </div>
-          )}
-         {classes &&  <div className="flex items-center gap-2 text-gray-400 text-sm">
-            <Building size={18} className="text-yellow-800" />
-            <span>Classes: {classes}</span>
-          </div>}
-        </div>
-
-        <div>
-          {teachers ? (
-            <div className="flex items-center gap-2 mb-2.5 text-gray-400 text-sm">
-              <Users size={18} className="text-textColor" />
-              <span>Teachers: {teachers}</span>
-            </div>
-          ) : null}
-          {admins ? (
-            <div className="flex items-center gap-2 text-gray-400 text-sm">
-              <Users size={18} className="text-orange-500" />
-              <span>Admins: {admins}</span>
-            </div>
-          ) : null}
-        </div>
-
-      </div>
-      <div className="mt-5 flex items-center ">
-        <div className="flex items-center gap-4">
-          {abents ? (
-            <div className="flex items-center gap-2 text-textColor">
-              {" "}
-              <span>
-                {" "}
-                <X size={20} color="red" className="mt-1" />
-              </span>
-              <p>abents : {abents}</p>
-            </div>
-          ) : null}
-          {late ? (
-            <div className="flex items-center gap-2 text-textColor">
-              {" "}
-              <span>
-                {" "}
-                <Clock size={15} className="mt-1" />
-              </span>
-              <p>{late} : late</p>
-            </div>
-          ) : null}
-        </div>
-        {showArrow ? (
-          <button className="w-9 h-9 ml-auto rounded-full bg-gray-500 border-none cursor-pointer flex items-center justify-center text-white">
-            <ChevronRight size={18} />
+            <ChevronRight size={16} />
           </button>
-        ) : null}
+        )}
       </div>
     </div>
   );
-}
- */
 }

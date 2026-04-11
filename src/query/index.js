@@ -1,5 +1,5 @@
 import { schoolById, schoolMine, schoolsAll } from "@/service/school";
-import { adminAll, adminById, adminGetInfo } from "@/service/admin";
+import { adminAll, adminById } from "@/service/admin";
 import {
   adminClassesStudents,
   classGroup,
@@ -24,7 +24,7 @@ import {
 } from "@/service/super-admin";
 import { teacherAdminAll, teacherAll, teacherById } from "@/service/teacher";
 import { getUserSettings } from "@/service/user";
-import { adminInfoStudentID } from "@/service/info";
+import { adminGetInfo, adminInfoStudentID, teacherInfo, teacherStudentsInfo } from "@/service/info";
 
 // school
 export const schoolsAllQuery = () => {
@@ -248,6 +248,22 @@ export const teacherClassesstudentsQuery = () => {
     queryFn: async () => TeacherClasses(),
   };
 };
+
+// teacher info
+
+export const teacherInfoQuery = () => {
+  return {
+    queryKey: ["students-info"],
+    queryFn: async () => teacherInfo(),
+  };
+};
+
+export const teacherStudentsQuery = ()=>{
+  return {
+    queryKey:["all-students-in-teacher"],
+    queryFn:async ()=> teacherStudentsInfo(), 
+  }
+}
 
 // user settings
 export const getUserSettingsQuery = () => {

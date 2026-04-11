@@ -10,7 +10,9 @@ export default function DataInfo() {
   const { roles } = useContext(UserContext);
 
   if (!roles) {
-    return <WaveLoader className={"text-textColor"} />;
+    return <div className='flex h-[50vh] justify-center items-center'>
+      <WaveLoader />
+    </div>
   }
   const renderHome = () => {
     switch (roles) {
@@ -27,8 +29,8 @@ export default function DataInfo() {
   return (
     <Suspense
       fallback={
-        <div className="flex justify-center h-[100vh] items-center">
-          {<WaveLoader className={"text-textColor w-12 h-12"} />}
+        <div className='flex h-[50vh] justify-center items-center'>
+          <WaveLoader />
         </div>
       }
     >

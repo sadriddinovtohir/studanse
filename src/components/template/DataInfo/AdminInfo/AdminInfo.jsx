@@ -20,7 +20,7 @@ export default function AdminInfo() {
 
   if (isLoading) {
     return (
-      <div className='flex h-[100vh] justify-center items-center'>
+      <div className='flex h-[50vh] justify-center items-center'>
         <WaveLoader />
       </div>
     )

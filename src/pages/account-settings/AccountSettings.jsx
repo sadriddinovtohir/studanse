@@ -23,7 +23,9 @@ export default function AccountSettings() {
   const { roles } = useContext(UserContext);
 
   if (!roles) {
-    return <WaveLoader />;
+  <div className='flex h-[50vh] justify-center items-center'>
+          <WaveLoader />
+        </div>
   }
   const renderSettings = () => {
     switch (roles) {
@@ -43,7 +45,7 @@ export default function AccountSettings() {
     <div>
       <Suspense
         fallback={
-          <div className="flex justify-center h-[100vh] items-center">
+          <div className="flex justify-center h-[50vh] items-center">
             {<WaveLoader />}
           </div>
         }

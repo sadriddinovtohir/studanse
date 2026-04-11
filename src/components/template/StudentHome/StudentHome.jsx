@@ -71,16 +71,16 @@ export default function StudentHome() {
             ))}
           </div>
 
-          <div className={cardClass}>
+          <div className={`${cardClass}max-h-[300px] `}>
             <CustomIcon
               title="Scheduled Reports"
-              className="border-none bg-[#3B1F0F] rounded-full p-2"
+              className="border-none bg-[#3B1F0F] rounded-full p-2 "
               icon={Calendar}
               titlesize={17}
               iconsize={20}
               iconColor="text-[#FF8904]"
             />
-            <div className="mt-3 flex flex-col gap-3">
+            <div className="mt-3 flex flex-col gap-3 max-h-[240px] overflow-y-auto pr-2 custom-scroll">
               {scheduledReports?.map((res, index) => {
                 const isLate = res?.type === "LATE";
                 const isDark = thema === "dark";

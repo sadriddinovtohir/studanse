@@ -20,7 +20,9 @@ export default function Home() {
   const { roles } = useContext(UserContext);
 
   if (!roles) {
-    return <WaveLoader />;
+    return <div className='flex h-[50vh] justify-center items-center'>
+      <WaveLoader />
+    </div>
   }
   const renderHome = () => {
     switch (roles) {
@@ -40,8 +42,8 @@ export default function Home() {
   return (
     <Suspense
       fallback={
-        <div className="flex justify-center h-[100vh] items-center">
-          {<WaveLoader/>}
+        <div className='flex h-[50vh] justify-center items-center'>
+          <WaveLoader />
         </div>
       }
     >

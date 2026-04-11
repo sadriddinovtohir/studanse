@@ -44,7 +44,6 @@ export default function LoginSistem({ setState }) {
     return (
         <div className="w-[420px] backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 shadow-2xl">
 
-            {/* Logo + Title */}
             <div className="flex flex-col items-center mb-8">
                 <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center shadow-lg">
                     <img src={project__logo} alt="project logo" />
@@ -54,7 +53,6 @@ export default function LoginSistem({ setState }) {
                 </h1>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit(onSubmit)} className="relative mb-5">
                 <CustomInput
                     name="email"
@@ -79,7 +77,7 @@ export default function LoginSistem({ setState }) {
                     }
                 />
 
-                {/* Forgot password link */}
+             
                 <div className="text-right mb-6">
                     <Button
                         type="button"

@@ -20,7 +20,3 @@ export const adminDelete = (id) => {
   return request({ method: "DELETE", url: `/admin/${id}` });
 };
 
-// admin data info
-export const adminGetInfo = (classId) => {
-  return request({ method: "GET", url: `admin/dashboard`, params: classId ? { classId } : {} });
-};

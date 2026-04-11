@@ -10,6 +10,7 @@ import { Building2 } from "lucide-react";
 export default function SuperAdminHome() {
   const [open, setOpen] = React.useState(false);
   const [selectedSchool, setSelectedSchool] = React.useState(null);
+
   const {
     allData: allSchools,
     isLoading,
@@ -21,28 +22,51 @@ export default function SuperAdminHome() {
     pageSize: 3,
   });
 
-  const isMobile = useMediaQuery("(max-width: 1212px)");
-
-  console.log(allSchools);
   
+
+  const isMobile = useMediaQuery("(max-width: 712px)");
+
+  const handleCardClick = (item) => {
+    setSelectedSchool(item);
+    setOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpen(false);
+  };
+
+  const skeletonCount = isMobile ? 2 : 6;
+
   return (
-    <div className="mb-[100px]">
-      <CustomIcon
-        icon={Building2}
-        title={"System Admin Dashboard"}
-        titlesize={30}
-      />
+    <div className="mb-24 px-4 sm:px-6  mx-auto">
+
+
+      <div className="py-6">
+        <CustomIcon
+          icon={Building2}
+          title="System Admin Dashboard"
+          titlesize={isMobile ? 22 : 28}
+        />
+      </div>
 
       <div
-        className={`flex ${isMobile ? "justify-center" : "justify-start"
-          } gap-5 flex-wrap`}
+        className={`
+          grid gap-4
+          grid-cols-1
+          sm:grid-cols-2
+          lg:grid-cols-3
+          justify-items-center
+        `}
       >
         {isLoading
-          ? Array(6)
+          ? Array(skeletonCount)
             .fill(0)
-            .map((_, i) => <CustomCard key={i} isLoading />)
+            .map((_, i) => (
+              <div key={i} className="w-full max-w-[450px]">
+                <CustomCard isLoading />
+              </div>
+            ))
           : allSchools?.map((item, index) => {
-            // ← null o'rniga key bilan fragment qaytaramiz
             if (!item || !item.address)
               return <React.Fragment key={item?.id ?? index} />;
 
@@ -51,12 +75,9 @@ export default function SuperAdminHome() {
             return (
               <div
                 ref={isLast ? lastItemRef : null}
-                key={item.id}
-                onClick={() => {
-                  setSelectedSchool(item);
-                  setOpen(true);
-                }}
-                className="w-full max-w-[450px]"
+                key={item.id || index}
+                onClick={() => handleCardClick(item)}
+                className="w-full max-w-[450px] cursor-pointer mx-auto"
               >
                 <CustomCard
                   BadgeVariants={String(item?.status)}
@@ -68,6 +89,7 @@ export default function SuperAdminHome() {
                   classes={item?.totalClassGroups}
                   teachers={item?.totalTeachers}
                   admins={item?.totalAdmins}
+                  height={"250px"}
                 />
               </div>
             );
@@ -75,21 +97,30 @@ export default function SuperAdminHome() {
       </div>
 
       {isFetchingNextPage && (
-        <div className="flex justify-center gap-5 flex-wrap mt-5">
+        <div
+          className={`
+            grid gap-4 mt-4
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+            justify-items-center
+          `}
+        >
           {Array(3)
             .fill(0)
             .map((_, i) => (
-              <CustomCard key={i} isLoading />
+              <div key={i} className="w-full max-w-[450px]">
+                <CustomCard isLoading />
+              </div>
             ))}
         </div>
       )}
 
-      {/* CustomDialog faqat bir marta, map dan tashqarida */}
       {selectedSchool && (
         <CustomDialog
           open={open}
-          onClose={setOpen}
-          title={"School Details"}
+          onClose={handleDialogClose}
+          title="School Details"
           icon={Building2}
           iconsize={20}
           titlesize={17}
